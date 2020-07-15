@@ -18,7 +18,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.67*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -58,7 +58,12 @@
 
         <Grid Grid.Column="2" Grid.RowSpan="2" Margin="20,0,0,0">
 
-            <ListView Margin="10" ItemsSource="{Binding CustomerCollection}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
+            <ListView Margin="10"  FontWeight="Bold" FontStyle="Italic" ItemsSource="{Binding CustomerCollection}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="CustomerId" Width="100" DisplayMemberBinding="{Binding CustomerId}"/>

@@ -7,14 +7,17 @@
         mc:Ignorable="d"
         Title="BookInventorySystem" MinHeight="600" MinWidth="1000" WindowState="Maximized">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/CoolBackGround.jpg"></ImageBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TabControl ItemsSource="{Binding TabItems}" SelectedIndex="0" TabStripPlacement="Left">
+        <TabControl ItemsSource="{Binding TabItems}" SelectedIndex="0" >
             <TabControl.ItemContainerStyle>
                 <Style TargetType="TabItem">
                     <Setter Property="Header" Value="{Binding TabName}"/>
-                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="Height" Value="30"/>
                 </Style>
             </TabControl.ItemContainerStyle>
         </TabControl>
