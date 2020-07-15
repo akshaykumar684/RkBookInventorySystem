@@ -155,6 +155,7 @@ namespace BookInventorySystem.ViewModel
 
             // Check if there is already a book with same name and same authorname
 
+            if (_searchedCustomer != null && _searchedCustomer.PhoneNo == PhoneNo && _searchedCustomer.Address == Address)
             {
                 MessageBox.Show("Duplicate");
                 return;
