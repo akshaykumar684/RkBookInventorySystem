@@ -1,0 +1,22 @@
+﻿<Window x:Class="BookInventorySystem.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookInventorySystem.View"
+        mc:Ignorable="d"
+        Title="BookInventorySystem" MinHeight="600" MinWidth="1000" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TabControl ItemsSource="{Binding TabItems}" SelectedIndex="0" TabStripPlacement="Left">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem">
+                    <Setter Property="Header" Value="{Binding TabName}"/>
+                    <Setter Property="Height" Value="50"/>
+                </Style>
+            </TabControl.ItemContainerStyle>
+        </TabControl>
+    </Grid>
+</Window>
