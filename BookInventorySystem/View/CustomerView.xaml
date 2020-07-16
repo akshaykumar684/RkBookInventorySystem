@@ -18,9 +18,9 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="0.67*"/>
+            <ColumnDefinition Width="0.27*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <!--<ColumnDefinition Width="*"/>-->
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -57,24 +57,44 @@
         </Grid>
 
         <Grid Grid.Column="2" Grid.RowSpan="2" Margin="20,0,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ListView Margin="10"  FontWeight="Bold" FontStyle="Italic" ItemsSource="{Binding CustomerCollection}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="CustomerId" Width="100" DisplayMemberBinding="{Binding CustomerId}"/>
+                            <GridViewColumn Header="CustomerName" Width="100" DisplayMemberBinding="{Binding CustomerName}" />
+                            <GridViewColumn Header="Address" Width="100" DisplayMemberBinding="{Binding Address}" />
+                            <GridViewColumn Header="Phone" Width="100" DisplayMemberBinding="{Binding PhoneNo}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-            <ListView Margin="10"  FontWeight="Bold" FontStyle="Italic" ItemsSource="{Binding CustomerCollection}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="Transparent" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="CustomerId" Width="100" DisplayMemberBinding="{Binding CustomerId}"/>
-                        <GridViewColumn Header="CustomerName" Width="100" DisplayMemberBinding="{Binding CustomerName}" />
-                        <GridViewColumn Header="Address" Width="100" DisplayMemberBinding="{Binding Address}" />
-                        <GridViewColumn Header="Phone" Width="100" DisplayMemberBinding="{Binding PhoneNo}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <ListView Margin="10" Grid.Column="1" FontWeight="Bold" FontStyle="Italic" ItemsSource="{Binding PreviousBookOrderCollection}" Background="Transparent">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="CustomerName" Width="100" DisplayMemberBinding="{Binding CustomerName}"/>
+                            <GridViewColumn Header="BookName" Width="100" DisplayMemberBinding="{Binding BookName}" />
+                            <GridViewColumn Header="AutorName" Width="100" DisplayMemberBinding="{Binding AuthorName}" />
+                            <GridViewColumn Header="Date Time" Width="100" DisplayMemberBinding="{Binding DateTime}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
+            </Grid>
         </Grid>
-
     </Grid>
 </UserControl>

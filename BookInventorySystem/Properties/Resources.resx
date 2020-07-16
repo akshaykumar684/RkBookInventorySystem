@@ -153,6 +153,9 @@
   <data name="GetAllOrders" xml:space="preserve">
     <value>dbo.Get_AllOrders</value>
   </data>
+  <data name="GetLastOrderDetails" xml:space="preserve">
+    <value>dbo.Get_AllPastOrdersOfCustomer @CustomerId</value>
+  </data>
   <data name="InsertBook" xml:space="preserve">
     <value>dbo.Book_Insert @BookId, @BookName, @Quantity, @AuthorName</value>
   </data>

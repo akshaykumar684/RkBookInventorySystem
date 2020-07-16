@@ -79,10 +79,11 @@ namespace BookInventorySystem.ViewModel
             {
                 _selectedCustomer = value;
                 FillAllField(value);
+                GetLastPurchaseHistory(value);
             }
         }
 
-       
+        
 
         public ICommand Add { get; set; }
 
@@ -96,6 +97,8 @@ namespace BookInventorySystem.ViewModel
 
         public ObservableCollection<CustomerModel> CustomerCollection { get; set; }
 
+        public ObservableCollection<CustomerHistoryModel> PreviousBookOrderCollection { get; set; }
+
         public static event EventHandler CustomerUpdateEvent;
         public CustomerViewModel()
         {
@@ -107,6 +110,7 @@ namespace BookInventorySystem.ViewModel
         private void InitializeProperty()
         {
             CustomerCollection = new ObservableCollection<CustomerModel>();
+            PreviousBookOrderCollection = new ObservableCollection<CustomerHistoryModel>();
             Add = new ApplicationCommand(AddUser);
             Update = new ApplicationCommand(UpdateCustomer);
             Delete = new ApplicationCommand(DeleteCustomer);
@@ -222,6 +226,18 @@ namespace BookInventorySystem.ViewModel
             CustomerName = _customer.CustomerName;
             Address = _customer.Address;
             PhoneNo = _customer.PhoneNo;
+        }
+
+        private async void GetLastPurchaseHistory(CustomerModel _customer)
+        {
+            PreviousBookOrderCollection.Clear();
+
+            Task<List<CustomerHistoryModel>> task = Task.Run<List<CustomerHistoryModel>>(() => {
+                var t = DataAccess<CustomerHistoryModel,CustomerModel>.GetAllData(Properties.Resources.GetLastOrderDetails,_customer);
+                return t;
+            });
+            var _lastHistoryCollection = await task;
+            _lastHistoryCollection.ForEach(t => PreviousBookOrderCollection.Add(t));
         }
 
         private void ClearAllField()
