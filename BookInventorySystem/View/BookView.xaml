@@ -51,10 +51,10 @@
         <Grid Grid.Column="1" Grid.Row="1" Background="Transparent" Margin="0,20,0,0">
 
             <StackPanel>
-                <Button Cursor="Hand" Content="Add" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding AddBook}" IsEnabled="{Binding IsResetButtonEnable}" HorizontalAlignment="Left" />
-                <Button Cursor="Hand" Content="Update" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding Update}" IsEnabled="{Binding IsResetButtonEnable}" HorizontalAlignment="Left" />
-                <Button Cursor="Hand" Content="Delete" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding Delete}" IsEnabled="{Binding IsResetButtonEnable}" HorizontalAlignment="Left" />
-                <Button Cursor="Hand" Content="GetBook" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding GetBook}" IsEnabled="{Binding IsResetButtonEnable}" HorizontalAlignment="Left" />
+                <Button Cursor="Hand" Content="Add" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding AddBook}" HorizontalAlignment="Left" />
+                <Button Cursor="Hand" Content="Update" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding Update}" HorizontalAlignment="Left" />
+                <Button Cursor="Hand" Content="Delete" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding Delete}" HorizontalAlignment="Left" />
+                <Button Cursor="Hand" Content="GetBook" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding GetBook}" HorizontalAlignment="Left" />
             </StackPanel>
             
         </Grid>

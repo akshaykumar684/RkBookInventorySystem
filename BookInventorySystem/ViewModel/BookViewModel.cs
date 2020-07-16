@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-
+using BookInventorySystem.View;
 namespace BookInventorySystem.ViewModel
 {
     public class BookViewModel : ViewModelBase
@@ -87,21 +87,29 @@ namespace BookInventorySystem.ViewModel
             set
             {
                 _selectedBook = value;
-                FillAllField(value);
+                if(value!=null)
+                    FillAllField(value);
                 OnPropertyChange();
+                GetAllOrders();
             }
         }
 
         public ObservableCollection<BookModel> BookCollection { get; set; }
+        public List<CheckOutModel> AllOrderData { get; set; }
 
         public static event EventHandler BookUpdateEvent;
+
+        MessagePopUp popup;
         public BookViewModel()
         {
             TabName = "BookDetails";
             InitializeProperty();
+            CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             GetBooks();
+            GetAllOrders();
         }
 
+       
 
         private void InitializeProperty()
         {
@@ -110,6 +118,16 @@ namespace BookInventorySystem.ViewModel
             Update = new ApplicationCommand(UpdateBook);
             Delete = new ApplicationCommand(DeleteBook);
             BookCollection = new ObservableCollection<BookModel>();
+            AllOrderData = new List<CheckOutModel>();
+        }
+
+
+        private void CheckOutViewModel_CheckInOutUpdateEvent(object sender, EventArgs e)
+        {
+            GetBooks();
+            SelectedBook = null;
+            ClearAllField();
+            //GetAllOrders();
         }
 
 
@@ -200,6 +218,14 @@ namespace BookInventorySystem.ViewModel
             {
                 if (SelectedBook == null)
                     return;
+
+                var tx = AllOrderData.FirstOrDefault(t => t.BookId == SelectedBook.BookId && t.HasBook == 1);
+                if(tx!=null)
+                {
+                    MessageBox.Show("Cannot Delete This Book.SomeUser Owns It");
+                    //ShowMessagePopup();
+                    return;
+                }
                 await DataAccess<BookModel>.DeleteData(SelectedBook,Properties.Resources.DeleteBook);
                 GetBooks();
                 InvokeBookUpdate();
@@ -211,6 +237,7 @@ namespace BookInventorySystem.ViewModel
             }
         }
 
+       
 
         private void FillAllField(BookModel book)
         {
@@ -230,5 +257,31 @@ namespace BookInventorySystem.ViewModel
         {
             BookUpdateEvent?.Invoke(new Object(), EventArgs.Empty);
         }
+
+
+        private async void GetAllOrders()
+        {
+            Task<List<CheckOutModel>> task = Task.Run<List<CheckOutModel>>(() => {
+                var t = CheckOutIn<CheckOutModel>.GetAllOrderData(Properties.Resources.GetAllOrders);
+                return t;
+            });
+            var orderCollection = await task;
+            AllOrderData.Clear();
+            orderCollection.ForEach(_order => AllOrderData.Add(_order));
+        }
+
+        private void ShowMessagePopup()
+        {
+            popup = new MessagePopUp();
+            popup.msg_Label.Content = "This Book is Taken By some User.\n Cannot Delete it.\n Please delete the customer or check in this book";
+            popup.CancelButton.Visibility = Visibility.Collapsed;
+            popup.question_Label.Visibility = Visibility.Collapsed;
+            popup.OkButton.HorizontalAlignment = HorizontalAlignment.Center;
+            popup.msg_Label.HorizontalAlignment = HorizontalAlignment.Center;
+            popup.msg_Label.Margin = new Thickness(-30, 0, 0, 0);
+            popup.OkButton.Click += (a, b) => { popup.Close(); };
+            popup.ShowDialog();
+        }
+
     }
 }

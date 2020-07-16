@@ -98,6 +98,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\MessagePopUp.xaml.cs">
+      <DependentUpon>MessagePopUp.xaml</DependentUpon>
+    </Compile>
     <Page Include="Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessagePopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -11,5 +11,7 @@ namespace BookInventorySystem.Model
         public string AuthorName { get; set; }
 
         public DateTime DateTime { get; set; }
+
+        public byte HasBook { get; set; }
     }
 }

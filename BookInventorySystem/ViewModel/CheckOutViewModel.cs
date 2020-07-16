@@ -80,6 +80,8 @@ namespace BookInventorySystem.ViewModel
         public ObservableCollection<CustomerModel> CustomerCollectionHavingBook { get; set; }
 
         public List<CheckOutModel> AllOrderData { get; set; }
+
+        public static event EventHandler CheckInOutUpdateEvent;
         
 
         public CheckOutViewModel()
@@ -110,6 +112,10 @@ namespace BookInventorySystem.ViewModel
         private void CustomerViewModel_CustomerUpdateEvent(object sender, EventArgs e)
         {
             GetAllCustomer();
+            GetAllOrders();
+            GetBooks();
+            GetAllCustomerHavingBook();
+            BookCollectionBelongingToSelectedCustomer.Clear();
         }
 
         private void BookViewModel_BookUpdateEvent(object sender, EventArgs e)
@@ -129,10 +135,12 @@ namespace BookInventorySystem.ViewModel
                 };
 
                 await CheckOutIn<CheckOutModel>.CheckOutBook(obj, Properties.Resources.CheckInBook);
+                RaiseCheckInOutEvent();
                 GetAllOrders();
                 GetBooks();
                 GetAllCustomerHavingBook();
                 BookCollectionBelongingToSelectedCustomer.Clear();
+                
             }
             else
             {
@@ -172,6 +180,7 @@ namespace BookInventorySystem.ViewModel
                 GetAllOrders();
                 GetBooks();
                 GetAllCustomerHavingBook();
+                RaiseCheckInOutEvent();
             }
             else
             {
@@ -240,12 +249,30 @@ namespace BookInventorySystem.ViewModel
         private async void GetAllOrders()
         {
             Task<List<CheckOutModel>> task = Task.Run<List<CheckOutModel>>(() => {
-                var t = CheckOutIn<CheckOutModel>.GetAllOrderData(Properties.Resources.GetAllOrders); ;
+                var t = CheckOutIn<CheckOutModel>.GetAllOrderData(Properties.Resources.GetAllOrders);
                 return t;
             });
             var orderCollection = await task;
             AllOrderData.Clear();
             orderCollection.ForEach(_order => AllOrderData.Add(_order));
+        }
+
+        /// <summary>
+        /// This method raise event for checkIn and checkOut of book so that BookViewModel and CustomerViewModel get notified and make necessary
+        /// Api calls
+        /// </summary>
+
+        private void RaiseCheckInOutEvent()
+        {
+            try
+            {
+                CheckInOutUpdateEvent?.Invoke(new object(), EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

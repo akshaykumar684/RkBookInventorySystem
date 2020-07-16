@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System;
 using System.Linq;
 using System.Windows;
+using BookInventorySystem.View;
 
 namespace BookInventorySystem.ViewModel
 {
@@ -78,7 +79,8 @@ namespace BookInventorySystem.ViewModel
             set
             {
                 _selectedCustomer = value;
-                FillAllField(value);
+                if(value!=null)
+                    FillAllField(value);
                 GetLastPurchaseHistory(value);
             }
         }
@@ -100,12 +102,17 @@ namespace BookInventorySystem.ViewModel
         public ObservableCollection<CustomerHistoryModel> PreviousBookOrderCollection { get; set; }
 
         public static event EventHandler CustomerUpdateEvent;
+
+        private MessagePopUp _messagePopup;
         public CustomerViewModel()
         {
             TabName = "CustomerDetails";
+            CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             InitializeProperty();
             GetAllCustomer();
         }
+
+       
 
         private void InitializeProperty()
         {
@@ -115,6 +122,12 @@ namespace BookInventorySystem.ViewModel
             Update = new ApplicationCommand(UpdateCustomer);
             Delete = new ApplicationCommand(DeleteCustomer);
             GetCustomer = new ApplicationCommand(GetAllCustomer);
+        }
+
+        private void CheckOutViewModel_CheckInOutUpdateEvent(object sender, EventArgs e)
+        {
+            SelectedCustomer = null;
+            ClearAllField();
         }
 
 
@@ -180,22 +193,55 @@ namespace BookInventorySystem.ViewModel
             InvokeCustomerUpdateEvent();
         }
 
-        
+        private bool _canDeleteUser = true;
         private async void DeleteCustomer()
         {
             try
             {
                 if (SelectedCustomer == null)
+                {
+                    MessageBox.Show("Select Customer");
                     return;
-                await DataAccess<CustomerModel>.DeleteData(SelectedCustomer, Properties.Resources.DeleteCustomer);
-                GetAllCustomer();
-                ClearAllField();
-                InvokeCustomerUpdateEvent();
+                }
+                    
+                _canDeleteUser = true;
+                /// Check if the selected user has taken some book
+                var _customerHasBook = PreviousBookOrderCollection.FirstOrDefault(t => t.HasBook == 1);
+                if(_customerHasBook!=null)
+                {
+                    //MessageBox.Show("This User has Book. Do you want to delete it?");
+                    ShowMessagePopup("This User has Book.");
+                }
+                if (_canDeleteUser)
+                {
+                    await DataAccess<CustomerModel>.DeleteData(SelectedCustomer, Properties.Resources.DeleteCustomer);
+                    GetAllCustomer();
+                    ClearAllField();
+                    InvokeCustomerUpdateEvent();
+                    PreviousBookOrderCollection.Clear();
+                }
             }
             catch (System.Data.SqlClient.SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+
+        private void ShowMessagePopup(string Message)
+        {
+            _messagePopup = new MessagePopUp();
+            _messagePopup.msg_Label.Content = Message;
+            _messagePopup.OkButton.Click += (a, b) => { _messagePopup.Close(); };
+
+            _messagePopup.CancelButton.Click += (a, b) =>
+            {
+                _canDeleteUser = false;
+                _messagePopup.Close();
+            };
+           
+
+             _messagePopup.ShowDialog();
         }
 
 
@@ -230,12 +276,11 @@ namespace BookInventorySystem.ViewModel
 
         private async void GetLastPurchaseHistory(CustomerModel _customer)
         {
-            PreviousBookOrderCollection.Clear();
-
             Task<List<CustomerHistoryModel>> task = Task.Run<List<CustomerHistoryModel>>(() => {
                 var t = DataAccess<CustomerHistoryModel,CustomerModel>.GetAllData(Properties.Resources.GetLastOrderDetails,_customer);
                 return t;
             });
+            PreviousBookOrderCollection.Clear();
             var _lastHistoryCollection = await task;
             _lastHistoryCollection.ForEach(t => PreviousBookOrderCollection.Add(t));
         }
