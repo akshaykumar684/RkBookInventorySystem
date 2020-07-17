@@ -32,7 +32,7 @@
             <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,-10,0,0">
                 <Label Content="Book Name*" Foreground="#FFA2A2A2"/>
                 <Border Style="{StaticResource BorderStyle}">
-                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding BookName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding BookName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                 </Border>
             </StackPanel>
 
@@ -41,7 +41,7 @@
             <StackPanel Grid.Row="3" Grid.Column="1" Margin="0,-20,0,0">
                 <Label Content="Author Name*" Foreground="#FFA2A2A2"/>
                 <Border Style="{StaticResource BorderStyle}" >
-                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding AuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding AuthorName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                 </Border>
             </StackPanel>
 
@@ -51,7 +51,7 @@
             <StackPanel Grid.Row="5" Grid.Column="1" Margin="0,-20,0,0">
                 <Label Content="Quantity*" Foreground="#FFA2A2A2"/>
                 <Border Style="{StaticResource BorderStyle}" >
-                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                 </Border>
                 <TextBlock Text="{Binding ErrorMsg,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ErrorMsgVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="Red" FontWeight="DemiBold"/>
             </StackPanel>

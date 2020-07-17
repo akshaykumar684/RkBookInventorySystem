@@ -61,11 +61,38 @@ namespace BookInventorySystem.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter address..
+        /// </summary>
+        internal static string AddressErrorMsg {
+            get {
+                return ResourceManager.GetString("AddressErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dbo.Customer_Insert @CustomerId, @CustomerName, @Address,@PhoneNo.
         /// </summary>
         internal static string AddUser {
             get {
                 return ResourceManager.GetString("AddUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter author name..
+        /// </summary>
+        internal static string AuthorNameErrorMsg {
+            get {
+                return ResourceManager.GetString("AuthorNameErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter book name..
+        /// </summary>
+        internal static string BookNameErrorMsg {
+            get {
+                return ResourceManager.GetString("BookNameErrorMsg", resourceCulture);
             }
         }
         
@@ -102,6 +129,15 @@ namespace BookInventorySystem.Properties {
         internal static string CheckOutBook {
             get {
                 return ResourceManager.GetString("CheckOutBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter Customer name..
+        /// </summary>
+        internal static string CustomerNameErrorMsg {
+            get {
+                return ResourceManager.GetString("CustomerNameErrorMsg", resourceCulture);
             }
         }
         
@@ -201,6 +237,24 @@ namespace BookInventorySystem.Properties {
         internal static string InsertBook {
             get {
                 return ResourceManager.GetString("InsertBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter PhoneNo..
+        /// </summary>
+        internal static string PhoneNoErrorMsg {
+            get {
+                return ResourceManager.GetString("PhoneNoErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter quantity of book..
+        /// </summary>
+        internal static string QuantityErrorMsg {
+            get {
+                return ResourceManager.GetString("QuantityErrorMsg", resourceCulture);
             }
         }
         

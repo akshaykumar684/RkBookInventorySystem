@@ -15,7 +15,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Margin="0,10,0,0">
-                <Label Name="msg_Label"  Margin="70,25,0,0" Foreground="#FFA2A2A2" FontSize="12" FontWeight="Bold"  Height="50" Width="200"  Background="Transparent" />
+                <Label Name="msg_Label"  Margin="80,25,0,0" Foreground="#FFA2A2A2" FontSize="12" FontWeight="Bold"  Height="50" Width="200"  Background="Transparent" />
                 <Label Name="question_Label" Content="Do you wish to continue?" Margin="0,-30,0,0" Foreground="#FFA2A2A2" FontSize="12" FontWeight="Bold"  Height="50" Width="155"  Background="Transparent"/>
             </StackPanel>
             <Grid Grid.Row="1" Margin="0,0,0,0">

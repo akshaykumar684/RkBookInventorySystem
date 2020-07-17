@@ -9,10 +9,11 @@ using System;
 using System.Linq;
 using System.Windows;
 using BookInventorySystem.View;
+using System.ComponentModel;
 
 namespace BookInventorySystem.ViewModel
 {
-    public class CustomerViewModel : ViewModelBase
+    public class CustomerViewModel : ViewModelBase, IDataErrorInfo
     {
         
         private string _customerId;
@@ -151,6 +152,44 @@ namespace BookInventorySystem.ViewModel
         {
             SelectedCustomer = null;
             ClearAllField();
+        }
+
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+
+
+                if (columnName == "CustomerName")
+                {
+                    if (String.IsNullOrEmpty(CustomerName))
+                        result = Properties.Resources.CustomerNameErrorMsg;
+                }
+
+                if (columnName == "Address")
+                {
+                    if (String.IsNullOrEmpty(Address))
+                        result = Properties.Resources.AddressErrorMsg;
+                }
+
+                if (columnName == "PhoneNo")
+                {
+                    if (String.IsNullOrEmpty(PhoneNo))
+                        result = Properties.Resources.PhoneNoErrorMsg;
+                }
+
+
+                return result;
+            }
         }
 
 

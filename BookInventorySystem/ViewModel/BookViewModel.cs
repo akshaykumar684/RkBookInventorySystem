@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using BookInventorySystem.View;
+using System.ComponentModel;
+
 namespace BookInventorySystem.ViewModel
 {
-    public class BookViewModel : ViewModelBase
+    public class BookViewModel : ViewModelBase, IDataErrorInfo
     {
         public ICommand GetBook { get; set; }
 
@@ -119,9 +120,46 @@ namespace BookInventorySystem.ViewModel
         public ObservableCollection<BookModel> BookCollection { get; set; }
         public List<CheckOutModel> AllOrderData { get; set; }
 
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+
+                
+                if (columnName == "BookName")
+                {
+                    if (String.IsNullOrEmpty(BookName))
+                        result = Properties.Resources.BookNameErrorMsg;
+                }
+
+                if (columnName == "AuthorName")
+                {
+                    if (String.IsNullOrEmpty(AuthorName))
+                        result = Properties.Resources.AuthorNameErrorMsg;
+                }
+
+                if (columnName == "Quantity")
+                {
+                    if (String.IsNullOrEmpty(Quantity))
+                        result = Properties.Resources.QuantityErrorMsg;
+                }
+
+                
+                return result;
+            }
+        }
+
         public static event EventHandler BookUpdateEvent;
 
-        MessagePopUp popup;
         public BookViewModel()
         {
             InitializeProperty();

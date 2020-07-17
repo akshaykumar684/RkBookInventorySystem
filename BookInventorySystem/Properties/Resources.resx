@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressErrorMsg" xml:space="preserve">
+    <value>Please enter address.</value>
+  </data>
   <data name="AddUser" xml:space="preserve">
     <value>dbo.Customer_Insert @CustomerId, @CustomerName, @Address,@PhoneNo</value>
+  </data>
+  <data name="AuthorNameErrorMsg" xml:space="preserve">
+    <value>Please enter author name.</value>
+  </data>
+  <data name="BookNameErrorMsg" xml:space="preserve">
+    <value>Please enter book name.</value>
   </data>
   <data name="BookOutOfStockMsg" xml:space="preserve">
     <value>This book is out of stock.</value>
@@ -131,6 +140,9 @@
   </data>
   <data name="CheckOutBook" xml:space="preserve">
     <value>dbo.CheckOut_Book @OrderId, @BookId, @CustomerId, @DateTime,@HasBook, @Quantity</value>
+  </data>
+  <data name="CustomerNameErrorMsg" xml:space="preserve">
+    <value>Please enter Customer name.</value>
   </data>
   <data name="CustomerUpdate" xml:space="preserve">
     <value>CustomerUpdate</value>
@@ -164,6 +176,12 @@
   </data>
   <data name="InsertBook" xml:space="preserve">
     <value>dbo.Book_Insert @BookId, @BookName, @Quantity, @AuthorName</value>
+  </data>
+  <data name="PhoneNoErrorMsg" xml:space="preserve">
+    <value>Please enter PhoneNo.</value>
+  </data>
+  <data name="QuantityErrorMsg" xml:space="preserve">
+    <value>Please enter quantity of book.</value>
   </data>
   <data name="SameBookExistMsg" xml:space="preserve">
     <value>This book already exist.Please Update it.</value>

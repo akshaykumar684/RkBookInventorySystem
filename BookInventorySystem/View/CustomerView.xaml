@@ -34,21 +34,21 @@
             <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,-10,0,0">
                 <Label Content="Customer Name*" Foreground="#FFA2A2A2"/>
                 <Border Style="{StaticResource BorderStyle}" >
-                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                 </Border>
             </StackPanel>
 
             <StackPanel Grid.Row="3" Grid.Column="1" Margin="0,-20,0,0">
                 <Label Content="Address*" Foreground="#FFA2A2A2"/>
                 <Border Style="{StaticResource BorderStyle}" >
-                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                 </Border>
             </StackPanel>
 
             <StackPanel Grid.Row="5" Grid.Column="1" Margin="0,-20,0,0">
                 <Label Content="PhoneNo*" Foreground="#FFA2A2A2"/>
                 <Border Style="{StaticResource BorderStyle}" >
-                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding PhoneNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBox Style="{StaticResource Textbox_style}" Text="{Binding PhoneNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                 </Border>
                 <TextBlock Text="{Binding ErrorMsg}" Visibility="{Binding ErrorMsgVisibility}" Foreground="Red" FontWeight="DemiBold"/>
             </StackPanel>
