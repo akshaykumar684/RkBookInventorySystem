@@ -6,11 +6,7 @@
              xmlns:local="clr-namespace:BookInventorySystem.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/CoolBackGround.jpg"></ImageBrush>
-        </Grid.Background>
-
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -21,25 +17,25 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel>
-            <ComboBox IsEditable="True" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding CustomerCollection}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="CustomerName" Width="200"/>
+            <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding CustomerCollection}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="CustomerName" Width="200"/>
 
             <Button Cursor="Hand" Content="CheckOut" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding CheckOut}" HorizontalAlignment="Left" />
         </StackPanel>
 
 
         <StackPanel Grid.Column="1">
-            <ComboBox IsEditable="True" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding BookCollection}" SelectedItem="{Binding SelectedBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookName" Width="200"/>
+            <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding BookCollection}" SelectedItem="{Binding SelectedBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookName" Width="200"/>
 
         </StackPanel>
 
         <StackPanel Grid.Row="1">
-            <ComboBox IsEditable="True" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding CustomerCollectionHavingBook}" SelectedItem="{Binding SelectedCustomerHavingBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="CustomerName" Width="200"/>
+            <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding CustomerCollectionHavingBook}" SelectedItem="{Binding SelectedCustomerHavingBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="CustomerName" Width="200"/>
             <Button Cursor="Hand" Content="CheckIn" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" Command="{Binding CheckIn}" HorizontalAlignment="Left"/>
         </StackPanel>
 
 
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <ComboBox IsEditable="True" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding BookCollectionBelongingToSelectedCustomer}" SelectedItem="{Binding SelectedBookOfSelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookName" Width="200"/>
+            <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding BookCollectionBelongingToSelectedCustomer}" SelectedItem="{Binding SelectedBookOfSelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookName" Width="200"/>
         </StackPanel>
     </Grid>
 </UserControl>

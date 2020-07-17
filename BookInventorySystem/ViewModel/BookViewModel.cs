@@ -91,6 +91,30 @@ namespace BookInventorySystem.ViewModel
                     FillAllField(value);
                 OnPropertyChange();
                 GetAllOrders();
+                ErrorMsgVisibility = Visibility.Collapsed;
+            }
+        }
+
+        private string _errorMsg;
+
+        public string ErrorMsg
+        {
+            get { return _errorMsg; }
+            set
+            {
+                _errorMsg = value;
+                OnPropertyChange();
+            }
+        }
+
+        private Visibility _errorMsgVisibility;
+        public Visibility ErrorMsgVisibility
+        {
+            get { return _errorMsgVisibility; }
+            set
+            {
+                _errorMsgVisibility = value;
+                OnPropertyChange();
             }
         }
 
@@ -119,6 +143,7 @@ namespace BookInventorySystem.ViewModel
             Delete = new ApplicationCommand(DeleteBook);
             BookCollection = new ObservableCollection<BookModel>();
             AllOrderData = new List<CheckOutModel>();
+            ErrorMsgVisibility = Visibility.Collapsed;
         }
 
 
@@ -133,8 +158,13 @@ namespace BookInventorySystem.ViewModel
 
         private async void UpdateBook()
         {
+            ErrorMsgVisibility = Visibility.Collapsed;
             if (SelectedBook == null || !CheckAllInputFields())
+            {
+                ErrorMsg = Properties.Resources.SelectBookErrorMsg;
+                ErrorMsgVisibility = Visibility.Visible;
                 return;
+            }
 
             var _searchedBook = BookCollection.FirstOrDefault(s => s.AuthorName == AuthorName);
 
@@ -142,7 +172,8 @@ namespace BookInventorySystem.ViewModel
 
             if (_searchedBook != null && _searchedBook.BookName == BookName && Convert.ToInt32(Quantity) == _searchedBook.Quantity)
             {
-                MessageBox.Show("Duplicate");
+                ErrorMsg = Properties.Resources.SameBookExistMsg;
+                ErrorMsgVisibility = Visibility.Visible;
                 return;
             }
 
@@ -162,6 +193,7 @@ namespace BookInventorySystem.ViewModel
         
         private async void GetBooks()
         {
+            ErrorMsgVisibility = Visibility.Collapsed;
             BookCollection.Clear();
 
             Task<List<BookModel>> task = Task.Run<List<BookModel>>(() => {
@@ -175,6 +207,7 @@ namespace BookInventorySystem.ViewModel
 
         private async void InsertBook()
         {
+            ErrorMsgVisibility = Visibility.Collapsed;
             if (!CheckAllInputFields())
                 return;
 
@@ -184,7 +217,8 @@ namespace BookInventorySystem.ViewModel
 
             if(_searchedBook!=null && _searchedBook.BookName == BookName)
             {
-                MessageBox.Show("Duplicate");
+                ErrorMsg = Properties.Resources.SameBookExistMsg;
+                ErrorMsgVisibility = Visibility.Visible;
                 return;
             }
             
@@ -216,14 +250,19 @@ namespace BookInventorySystem.ViewModel
         {
             try
             {
+                ErrorMsgVisibility = Visibility.Collapsed;
                 if (SelectedBook == null)
+                {
+                    ErrorMsg = Properties.Resources.SelectBookErrorMsg;
+                    ErrorMsgVisibility = Visibility.Visible;
                     return;
+                }
 
                 var tx = AllOrderData.FirstOrDefault(t => t.BookId == SelectedBook.BookId && t.HasBook == 1);
                 if(tx!=null)
                 {
-                    MessageBox.Show("Cannot Delete This Book.SomeUser Owns It");
-                    //ShowMessagePopup();
+                    ErrorMsg = "Cannot Delete this book.Someuser owns it\n Please delete that user or return the book";
+                    ErrorMsgVisibility = Visibility.Visible;
                     return;
                 }
                 await DataAccess<BookModel>.DeleteData(SelectedBook,Properties.Resources.DeleteBook);
@@ -269,19 +308,5 @@ namespace BookInventorySystem.ViewModel
             AllOrderData.Clear();
             orderCollection.ForEach(_order => AllOrderData.Add(_order));
         }
-
-        private void ShowMessagePopup()
-        {
-            popup = new MessagePopUp();
-            popup.msg_Label.Content = "This Book is Taken By some User.\n Cannot Delete it.\n Please delete the customer or check in this book";
-            popup.CancelButton.Visibility = Visibility.Collapsed;
-            popup.question_Label.Visibility = Visibility.Collapsed;
-            popup.OkButton.HorizontalAlignment = HorizontalAlignment.Center;
-            popup.msg_Label.HorizontalAlignment = HorizontalAlignment.Center;
-            popup.msg_Label.Margin = new Thickness(-30, 0, 0, 0);
-            popup.OkButton.Click += (a, b) => { popup.Close(); };
-            popup.ShowDialog();
-        }
-
     }
 }

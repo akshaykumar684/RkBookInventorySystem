@@ -124,6 +124,15 @@ namespace BookInventorySystem.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter all fields..
+        /// </summary>
+        internal static string EmptyFieldErrorMsg {
+            get {
+                return ResourceManager.GetString("EmptyFieldErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dbo.Get_AllBook.
         /// </summary>
         internal static string GetAllBooks {
@@ -187,6 +196,24 @@ namespace BookInventorySystem.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This book already exist.Please Update it..
+        /// </summary>
+        internal static string SameBookExistMsg {
+            get {
+                return ResourceManager.GetString("SameBookExistMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a book..
+        /// </summary>
+        internal static string SelectBookErrorMsg {
+            get {
+                return ResourceManager.GetString("SelectBookErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dbo.Book_Update @BookId, @BookName, @Quantity, @AuthorName.
         /// </summary>
         internal static string UpdateBook {
@@ -201,6 +228,24 @@ namespace BookInventorySystem.Properties {
         internal static string UpdateCustomer {
             get {
                 return ResourceManager.GetString("UpdateCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user already exist..
+        /// </summary>
+        internal static string UserAlreadyExistMsg {
+            get {
+                return ResourceManager.GetString("UserAlreadyExistMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a user..
+        /// </summary>
+        internal static string UserNotSelectedErrorMsg {
+            get {
+                return ResourceManager.GetString("UserNotSelectedErrorMsg", resourceCulture);
             }
         }
     }

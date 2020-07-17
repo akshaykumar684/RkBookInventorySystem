@@ -82,10 +82,34 @@ namespace BookInventorySystem.ViewModel
                 if(value!=null)
                     FillAllField(value);
                 GetLastPurchaseHistory(value);
+                ErrorMsgVisibility = Visibility.Collapsed;
             }
         }
 
-        
+        private string _errorMsg;
+
+        public string ErrorMsg
+        {
+            get { return _errorMsg; }
+
+            set
+            {
+                _errorMsg = value;
+                OnPropertyChange();
+            }
+        }
+
+        private Visibility _errorMsgVisibility;
+
+        public Visibility ErrorMsgVisibility
+        {
+            get { return _errorMsgVisibility;}
+            set
+            {
+                _errorMsgVisibility = value;
+                OnPropertyChange();
+            }
+        }
 
         public ICommand Add { get; set; }
 
@@ -110,6 +134,7 @@ namespace BookInventorySystem.ViewModel
             CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             InitializeProperty();
             GetAllCustomer();
+            ErrorMsgVisibility = Visibility.Collapsed;
         }
 
        
@@ -133,6 +158,7 @@ namespace BookInventorySystem.ViewModel
 
         private async void AddUser()
         {
+            ErrorMsgVisibility = Visibility.Collapsed;
             if (!CheckAllInputFields())
                 return;
 
@@ -142,7 +168,8 @@ namespace BookInventorySystem.ViewModel
 
             if (_searchedCustomer != null && _searchedCustomer.PhoneNo == PhoneNo)
             {
-                MessageBox.Show("Duplicate");
+                ErrorMsg = Properties.Resources.UserAlreadyExistMsg;
+                ErrorMsgVisibility = Visibility.Visible;
                 return;
             }
 
@@ -165,8 +192,14 @@ namespace BookInventorySystem.ViewModel
 
         private async void UpdateCustomer()
         {
+            ErrorMsgVisibility = Visibility.Collapsed;
             if (SelectedCustomer == null || !CheckAllInputFields())
+            {
+                ErrorMsg = Properties.Resources.UserNotSelectedErrorMsg;
+                ErrorMsgVisibility = Visibility.Visible;
                 return;
+            }
+                
 
             var _searchedCustomer = CustomerCollection.FirstOrDefault(s => s.CustomerName == CustomerName);
 
@@ -174,7 +207,8 @@ namespace BookInventorySystem.ViewModel
 
             if (_searchedCustomer != null && _searchedCustomer.PhoneNo == PhoneNo && _searchedCustomer.Address == Address)
             {
-                MessageBox.Show("Duplicate");
+                ErrorMsg = Properties.Resources.UserAlreadyExistMsg;
+                ErrorMsgVisibility = Visibility.Visible;
                 return;
             }
 
@@ -198,9 +232,11 @@ namespace BookInventorySystem.ViewModel
         {
             try
             {
+                ErrorMsgVisibility = Visibility.Collapsed;
                 if (SelectedCustomer == null)
                 {
-                    MessageBox.Show("Select Customer");
+                    ErrorMsg = Properties.Resources.UserNotSelectedErrorMsg;
+                    ErrorMsgVisibility = Visibility.Visible;
                     return;
                 }
                     
@@ -209,7 +245,6 @@ namespace BookInventorySystem.ViewModel
                 var _customerHasBook = PreviousBookOrderCollection.FirstOrDefault(t => t.HasBook == 1);
                 if(_customerHasBook!=null)
                 {
-                    //MessageBox.Show("This User has Book. Do you want to delete it?");
                     ShowMessagePopup("This User has Book.");
                 }
                 if (_canDeleteUser)

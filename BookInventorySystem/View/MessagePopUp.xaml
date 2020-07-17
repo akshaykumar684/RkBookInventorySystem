@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:BookInventorySystem.View"
         mc:Ignorable="d"  ShowInTaskbar="False" WindowState="Maximized" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Topmost="True"
         Title="PopUp"  Background="#33000000">
-    <Border Background="White" CornerRadius="10" BorderThickness="2" BorderBrush="#00549c" Height="150" Width="350"  HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid>
+    <Border Background="#FF292929" CornerRadius="10" BorderThickness="2" BorderBrush="#00549c" Height="150" Width="350"  HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Margin="-2,-2,2,2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
@@ -15,20 +15,12 @@
             </Grid.RowDefinitions>
 
             <StackPanel Margin="0,10,0,0">
-                <Label Name="msg_Label"  Margin="70,25,0,0" Foreground="#00549c" FontSize="12" FontWeight="Bold"  Height="50" Width="200"  Background="Transparent" />
-                <Label Name="question_Label" Content="Do you wish to continue?" Margin="0,-30,0,0" Foreground="#00549c" FontSize="12" FontWeight="Bold"  Height="50" Width="155"  Background="Transparent"/>
+                <Label Name="msg_Label"  Margin="70,25,0,0" Foreground="#FFA2A2A2" FontSize="12" FontWeight="Bold"  Height="50" Width="200"  Background="Transparent" />
+                <Label Name="question_Label" Content="Do you wish to continue?" Margin="0,-30,0,0" Foreground="#FFA2A2A2" FontSize="12" FontWeight="Bold"  Height="50" Width="155"  Background="Transparent"/>
             </StackPanel>
             <Grid Grid.Row="1" Margin="0,0,0,0">
-                <Button Cursor="Hand" IsDefault="True" Name="OkButton"  Style="{StaticResource button_style}" Width="120" HorizontalAlignment="Left"  Margin="30,0,0,0">
-                    <Button.Content>
-                        <Label Name="OK" Content="OK" Foreground="White" Margin="0,-2,0,0"/>
-                    </Button.Content>
-                </Button>
-                <Button Foreground="White"  Cursor="Hand"  Name="CancelButton"  Style="{StaticResource button_style}" Width="120" HorizontalAlignment="Right" Margin="0,0,30,0">
-                    <Button.Content>
-                        <Label Name="Cancel" Content="Cancel" Foreground="White" Margin="0,-2,0,0"/>
-                    </Button.Content>
-                </Button>
+                <Button Content="Ok" Foreground="White" Cursor="Hand" IsDefault="True" Name="OkButton"  Style="{StaticResource button_style}" Width="120" HorizontalAlignment="Left"  Margin="30,0,0,0"/>
+                <Button Foreground="White"  Content="Cancel"  Cursor="Hand"  Name="CancelButton"  Style="{StaticResource button_style}" Width="120" HorizontalAlignment="Right" Margin="0,0,30,0"/>
             </Grid>
         </Grid>
     </Border>
