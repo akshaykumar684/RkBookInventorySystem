@@ -12,10 +12,7 @@ namespace BookInventorySystem.ViewModel
 {
     public class CheckOutViewModel : ViewModelBase
     {
-        public string TabName { get; set; }
-
-
-
+       
         private BookModel _selectedBook;
 
         public BookModel SelectedBook
@@ -25,6 +22,7 @@ namespace BookInventorySystem.ViewModel
             {
                 _selectedBook = value;
                 OnPropertyChange();
+                VisibilityCollapser();
             }
         }
 
@@ -37,6 +35,7 @@ namespace BookInventorySystem.ViewModel
             {
                 _selectedBookOfSelectedCustomer = value;
                 OnPropertyChange();
+                VisibilityCollapser();
             }
         }
 
@@ -50,6 +49,7 @@ namespace BookInventorySystem.ViewModel
             {
                 _selectedCustomer = value;
                 OnPropertyChange();
+                VisibilityCollapser();
             }
         }
 
@@ -63,6 +63,56 @@ namespace BookInventorySystem.ViewModel
             {
                 _selectedCustomerHavingBook = value;
                 GetAllBooksOfSelectedCustomer();
+                OnPropertyChange();
+                VisibilityCollapser();
+            }
+        }
+
+        private string _checkOutErrorMessage;
+
+        public string CheckOutErrorMessage
+        {
+            get { return _checkOutErrorMessage; }
+            set
+            {
+                _checkOutErrorMessage = value;
+                OnPropertyChange();
+            }
+        }
+
+        private string _checkInErrorMessage;
+
+        public string CheckInErrorMessage
+        {
+            get { return _checkInErrorMessage; }
+            set
+            {
+                _checkInErrorMessage = value;
+                OnPropertyChange();
+            }
+        }
+
+        private Visibility _checkOutErrorMessageVisibility;
+
+        public Visibility CheckOutErrorMessageVisibility
+        {
+            get { return _checkOutErrorMessageVisibility; }
+
+            set
+            {
+                _checkOutErrorMessageVisibility = value;
+                OnPropertyChange();
+            }
+        }
+
+        private Visibility _checkInErrorMessageVisibility;
+
+        public Visibility CheckInErrorMessageVisibility
+        {
+            get { return _checkInErrorMessageVisibility; }
+            set
+            {
+                _checkInErrorMessageVisibility = value;
                 OnPropertyChange();
             }
         }
@@ -86,7 +136,6 @@ namespace BookInventorySystem.ViewModel
 
         public CheckOutViewModel()
         {
-            TabName = "CheckOutDetails";
             BookViewModel.BookUpdateEvent += BookViewModel_BookUpdateEvent;
             CustomerViewModel.CustomerUpdateEvent += CustomerViewModel_CustomerUpdateEvent;
             InitializePrperty();
@@ -125,6 +174,7 @@ namespace BookInventorySystem.ViewModel
 
         private async void CheckInBook()
         {
+            VisibilityCollapser();
             if (SelectedBookOfSelectedCustomer != null && SelectedCustomerHavingBook != null)
             {
                 var obj = new CheckOutModel()
@@ -150,18 +200,22 @@ namespace BookInventorySystem.ViewModel
 
         private async void CheckOutBook()
         {
+            VisibilityCollapser();
             if (SelectedBook != null && SelectedCustomer != null)
             {
                 if (SelectedBook.Quantity <= 0)
                 {
-                    MessageBox.Show("Book Out of Stock");
+                    CheckOutErrorMessage = Properties.Resources.BookOutOfStockMsg;
+                    CheckOutErrorMessageVisibility = Visibility.Visible;
                     return;
                 }
                 ///Check if the user has already taken the same book previously
                 var tx = AllOrderData.Where(t => t.BookId == SelectedBook.BookId && t.CustomerId == SelectedCustomer.CustomerId && t.HasBook == 1).ToList();
                 if (tx.Count!=0)
                 {
-                    MessageBox.Show("This User has this book");
+                    //MessageBox.Show("This User has this book");
+                    CheckOutErrorMessage = Properties.Resources.UserAlreadyHasBookMsg;
+                    CheckOutErrorMessageVisibility = Visibility.Visible;
                     return;
                 }
 
@@ -264,15 +318,13 @@ namespace BookInventorySystem.ViewModel
 
         private void RaiseCheckInOutEvent()
         {
-            try
-            {
-                CheckInOutUpdateEvent?.Invoke(new object(), EventArgs.Empty);
-            }
-            catch (Exception ex)
-            {
+            CheckInOutUpdateEvent?.Invoke(new object(), EventArgs.Empty);
+        }
 
-                throw;
-            }
+        private void VisibilityCollapser()
+        {
+            CheckInErrorMessageVisibility = Visibility.Collapsed;
+            CheckOutErrorMessageVisibility = Visibility.Collapsed;
         }
     }
 }

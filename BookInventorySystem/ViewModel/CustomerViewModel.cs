@@ -14,8 +14,7 @@ namespace BookInventorySystem.ViewModel
 {
     public class CustomerViewModel : ViewModelBase
     {
-        public string TabName { get; set; }
-
+        
         private string _customerId;
 
         public string CustomerId
@@ -130,7 +129,6 @@ namespace BookInventorySystem.ViewModel
         private MessagePopUp _messagePopup;
         public CustomerViewModel()
         {
-            TabName = "CustomerDetails";
             CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             InitializeProperty();
             GetAllCustomer();

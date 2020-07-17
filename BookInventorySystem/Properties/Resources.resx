@@ -120,6 +120,9 @@
   <data name="AddUser" xml:space="preserve">
     <value>dbo.Customer_Insert @CustomerId, @CustomerName, @Address,@PhoneNo</value>
   </data>
+  <data name="BookOutOfStockMsg" xml:space="preserve">
+    <value>This book is out of stock.</value>
+  </data>
   <data name="BookUpdate" xml:space="preserve">
     <value>BookUpdate</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="UserAlreadyExistMsg" xml:space="preserve">
     <value>This user already exist.</value>
+  </data>
+  <data name="UserAlreadyHasBookMsg" xml:space="preserve">
+    <value>This User already has this book.</value>
   </data>
   <data name="UserNotSelectedErrorMsg" xml:space="preserve">
     <value>Please select a user.</value>

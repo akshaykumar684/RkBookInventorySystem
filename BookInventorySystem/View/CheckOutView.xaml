@@ -8,6 +8,94 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Line HorizontalAlignment="Left" Stretch="Fill" Stroke="#00549c" StrokeThickness="1.5" X2="1" VerticalAlignment="Center"/>
+                <TextBlock Text="Book CheckOut Section" Foreground="#FF2196F3" FontWeight="ExtraBold" HorizontalAlignment="Center"/>
+                <Line HorizontalAlignment="Left" Stretch="Fill" Stroke="#00549c" StrokeThickness="1.5" X2="1" VerticalAlignment="Center"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Select Customer:" Foreground="#FF2196F3" FontWeight="DemiBold"/>
+                        <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" BorderThickness="0" ItemsSource="{Binding CustomerCollection}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="CustomerName" Width="200" Margin="30,-5,0,0"/>
+                    </StackPanel>
+
+                    <Grid Height="80"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Select Book:" Foreground="#FF2196F3" FontWeight="DemiBold"/>
+                        <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding BookCollection}" SelectedItem="{Binding SelectedBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookName" Width="200" Margin="53,-5,0,0"/>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding CheckOutErrorMessage}" Visibility="{Binding CheckOutErrorMessageVisibility}" Foreground="Red" HorizontalAlignment="Left" Margin="120,10,0,0"/>
+
+                    <Grid Height="60"/>
+
+                    <Button Cursor="Hand" Content="CheckOut" Style="{StaticResource ButtonStyle}" Margin="-130,10,0,0" Command="{Binding CheckOut}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+
+        <Line Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Stretch="Fill" Stroke="#00549c" StrokeThickness="1.5" Y2="1" VerticalAlignment="Top"/>
+
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Line HorizontalAlignment="Left" Stretch="Fill" Stroke="#00549c" StrokeThickness="1.5" X2="1" VerticalAlignment="Center"/>
+                <TextBlock Text="Book CheckIn Section" Foreground="#FF2196F3" FontWeight="ExtraBold" HorizontalAlignment="Center" />
+                <Line HorizontalAlignment="Left" Stretch="Fill" Stroke="#00549c" StrokeThickness="1.5" X2="1" VerticalAlignment="Center"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Select Customer:" Foreground="#FF2196F3" FontWeight="DemiBold"/>
+                        <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" BorderThickness="0" ItemsSource="{Binding CustomerCollectionHavingBook}" SelectedItem="{Binding SelectedCustomerHavingBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="CustomerName" Width="200" Margin="30,-5,0,0"/>
+                    </StackPanel>
+
+                    <Grid Height="80"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Select Book:" Foreground="#FF2196F3" FontWeight="DemiBold"/>
+                        <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding BookCollectionBelongingToSelectedCustomer}" SelectedItem="{Binding SelectedBookOfSelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookName" Width="200" Margin="53,-5,0,0"/>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding CheckInErrorMessage}" Visibility="{Binding CheckInErrorMessageVisibility}" Foreground="Red" HorizontalAlignment="Left" Margin="120,10,0,0"/>
+
+                    <Grid Height="60"/>
+
+                    <Button Cursor="Hand" Content="CheckIn" Style="{StaticResource ButtonStyle}" Margin="-130,10,0,0" Command="{Binding CheckIn}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+           
+        </Grid>
+        
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -36,6 +124,6 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1">
             <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding BookCollectionBelongingToSelectedCustomer}" SelectedItem="{Binding SelectedBookOfSelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookName" Width="200"/>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </UserControl>

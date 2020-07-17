@@ -70,6 +70,15 @@ namespace BookInventorySystem.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This book is out of stock..
+        /// </summary>
+        internal static string BookOutOfStockMsg {
+            get {
+                return ResourceManager.GetString("BookOutOfStockMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BookUpdate.
         /// </summary>
         internal static string BookUpdate {
@@ -237,6 +246,15 @@ namespace BookInventorySystem.Properties {
         internal static string UserAlreadyExistMsg {
             get {
                 return ResourceManager.GetString("UserAlreadyExistMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This User already has this book..
+        /// </summary>
+        internal static string UserAlreadyHasBookMsg {
+            get {
+                return ResourceManager.GetString("UserAlreadyHasBookMsg", resourceCulture);
             }
         }
         

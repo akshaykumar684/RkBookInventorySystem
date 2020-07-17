@@ -13,8 +13,6 @@ namespace BookInventorySystem.ViewModel
 {
     public class BookViewModel : ViewModelBase
     {
-        public string TabName { get; set; }
-
         public ICommand GetBook { get; set; }
 
         public ICommand AddBook { get; set; }
@@ -126,7 +124,6 @@ namespace BookInventorySystem.ViewModel
         MessagePopUp popup;
         public BookViewModel()
         {
-            TabName = "BookDetails";
             InitializeProperty();
             CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             GetBooks();
