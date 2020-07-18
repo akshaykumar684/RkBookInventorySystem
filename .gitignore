@@ -158,3 +158,23 @@ BookInventorySystem/obj/Debug/View/LoginView.baml
 BookInventorySystem/obj/Release/View/LoginView.baml
 BookInventorySystem/obj/Release/View/LoginView.g.cs
 BookInventorySystem/obj/Release/View/LoginView.g.i.cs
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/0x0409.ini
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/BI_Installer.msi
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/BookInventorySystem.exe
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/BookInventorySystem.exe.config
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/ControlzEx.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Dapper.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/DataAccessLayer.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/MahApps.Metro.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/MaterialDesignColors.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/MaterialDesignThemes.Wpf.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Microsoft.Xaml.Behaviors.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/setup.exe
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/Setup.ini
+BI_Installer/BI_Installer/Express/DVD-5/LogFiles/7-18-2020 10-00-51 PM.txt
+BI_Installer/BI_Installer/Express/DVD-5/Reports/7-18-2020 10-00-57 PM.htm
+BookInventorySystem/obj/Debug/View/LoginView.g.cs
+BookInventorySystem/obj/Debug/View/LoginView.g.i.cs
+BookInventorySystem/obj/Debug/View/MessagePopUp.baml
+BookInventorySystem/obj/Debug/View/MessagePopUp.g.cs
+BookInventorySystem/obj/Debug/View/MessagePopUp.g.i.cs
