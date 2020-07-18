@@ -81,34 +81,29 @@ namespace BookInventorySystem.ViewModel
 
         private void TabSwitch(object parameter)
         {
-            var t = parameter as Button;
-            if (t != null)
+            var _button = parameter as Button;
+            if (_button != null)
             {
-                string x = t.Uid;
+                string x = _button.Uid;
                 int index = int.Parse(x);
                 if (x == "0")
                 {
-
                     gridmargin = new Thickness(10 + (150 * index), 0, 0, 0);
+                    CurrentScreen = _bookViewModel;
                 }
 
                 else if (x == "1")
                 {
                     gridmargin = new Thickness(10 + (150 * index), 0, 0, 0);
-                    CurrentScreen = _bookViewModel;
+                    CurrentScreen = _customerViewModel;
                 }
 
 
                 else if (x == "2")
                 {
                     gridmargin = new Thickness(10 + (150 * index), 0, 0, 0);
-                    CurrentScreen = _customerViewModel;
-                }
-
-                else if (x == "3")
-                {
-                    gridmargin = new Thickness(10 + (150 * index), 0, 0, 0);
                     CurrentScreen = _checkOutViewModel;
+
                 }
             }
         }

@@ -156,6 +156,9 @@
   <data name="EmptyFieldErrorMsg" xml:space="preserve">
     <value>Please enter all fields.</value>
   </data>
+  <data name="GetAdminList" xml:space="preserve">
+    <value>dbo.Get_AdminUser @UserName, @Password</value>
+  </data>
   <data name="GetAllBooks" xml:space="preserve">
     <value>dbo.Get_AllBook</value>
   </data>

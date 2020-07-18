@@ -178,6 +178,15 @@ namespace BookInventorySystem.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dbo.Get_AdminUser @UserName, @Password.
+        /// </summary>
+        internal static string GetAdminList {
+            get {
+                return ResourceManager.GetString("GetAdminList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dbo.Get_AllBook.
         /// </summary>
         internal static string GetAllBooks {
