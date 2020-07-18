@@ -232,6 +232,15 @@ namespace BookInventorySystem.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dbo.Get_AllPastOrdersOfBook @BookId.
+        /// </summary>
+        internal static string GetLastBookOrderDetails {
+            get {
+                return ResourceManager.GetString("GetLastBookOrderDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dbo.Get_AllPastOrdersOfCustomer @CustomerId.
         /// </summary>
         internal static string GetLastOrderDetails {

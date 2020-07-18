@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookInventorySystem.View" WindowStyle="None"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Name="MainWindow"
+        mc:Ignorable="d" Name="MainWindow" Icon="/Images/address_book.ico"
         Title="BookInventorySystem" MinHeight="600" MinWidth="1000" WindowState="Maximized">
 
     <Grid Background="#FF292929">

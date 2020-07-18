@@ -89,6 +89,7 @@ namespace BookInventorySystem.ViewModel
                 if(value!=null)
                     FillAllField(value);
                 OnPropertyChange();
+                GetLastPurchaseHistory(value);
                 GetAllOrders();
                 ErrorMsgVisibility = Visibility.Collapsed;
             }
@@ -160,6 +161,8 @@ namespace BookInventorySystem.ViewModel
 
         public static event EventHandler BookUpdateEvent;
 
+        public ObservableCollection<CustomerHistoryModel> PreviousBookOrderCollection { get; set; }
+
         public BookViewModel()
         {
             InitializeProperty();
@@ -177,6 +180,7 @@ namespace BookInventorySystem.ViewModel
             Update = new ApplicationCommand(UpdateBook);
             Delete = new ApplicationCommand(DeleteBook);
             BookCollection = new ObservableCollection<BookModel>();
+            PreviousBookOrderCollection = new ObservableCollection<CustomerHistoryModel>();
             AllOrderData = new List<CheckOutModel>();
             ErrorMsgVisibility = Visibility.Collapsed;
         }
@@ -342,6 +346,17 @@ namespace BookInventorySystem.ViewModel
             var orderCollection = await task;
             AllOrderData.Clear();
             orderCollection.ForEach(_order => AllOrderData.Add(_order));
+        }
+
+        private async void GetLastPurchaseHistory(BookModel _book)
+        {
+            Task<List<CustomerHistoryModel>> task = Task.Run<List<CustomerHistoryModel>>(() => {
+                var t = DataAccess<CustomerHistoryModel, BookModel>.GetAllData(Properties.Resources.GetLastBookOrderDetails, _book);
+                return t;
+            });
+            PreviousBookOrderCollection.Clear();
+            var _lastHistoryCollection = await task;
+            _lastHistoryCollection.ForEach(t => PreviousBookOrderCollection.Add(t));
         }
     }
 }

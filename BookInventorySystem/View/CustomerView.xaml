@@ -11,7 +11,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -24,6 +24,8 @@
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="*"/>
@@ -50,6 +52,11 @@
                 <Border Style="{StaticResource BorderStyle}" >
                     <TextBox Style="{StaticResource Textbox_style}" Text="{Binding PhoneNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                 </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Row="7" Grid.Column="1" Margin="0,-20,0,0">
+                <Label Content="Search Customer" Foreground="#FFA2A2A2"/>
+                <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding CustomerCollection}" SelectedItem="{Binding SelectedCustomer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="CustomerName" Width="300"/>
                 <TextBlock Text="{Binding ErrorMsg}" Visibility="{Binding ErrorMsgVisibility}" Foreground="Red" FontWeight="DemiBold"/>
             </StackPanel>
 

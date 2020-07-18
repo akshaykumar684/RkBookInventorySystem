@@ -25,7 +25,7 @@ namespace BookInventorySystem
             
             //string errorMessage = string.Format("An unhandled exception occurred: {0}", e.Exception.Message);
             //MessageBox.TabSwitch(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //e.Handled = true;
+            e.Handled = true;
         }
     }
 }

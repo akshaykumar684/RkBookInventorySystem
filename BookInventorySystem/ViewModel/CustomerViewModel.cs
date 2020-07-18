@@ -83,6 +83,7 @@ namespace BookInventorySystem.ViewModel
                     FillAllField(value);
                 GetLastPurchaseHistory(value);
                 ErrorMsgVisibility = Visibility.Collapsed;
+                OnPropertyChange();
             }
         }
 

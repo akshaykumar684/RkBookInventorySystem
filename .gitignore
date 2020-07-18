@@ -147,3 +147,14 @@ BookInventorySystem/bin/Release/BookInventorySystem.vshost.exe
 BookInventorySystem/bin/Release/BookInventorySystem.pdb
 BookInventorySystem/bin/Release/BookInventorySystem.exe.config
 BookInventorySystem/bin/Release/BookInventorySystem.exe
+BI_Installer/BI_Installer.isl
+BI_Installer/BI_Installer.isproj
+BI_Installer/BI_Installer/Express/Interm/_IsIcoRes.Exe
+BI_Installer/BI_Installer/Express/SingleImage/DiskImages/DISK1/setup.exe
+BI_Installer/BI_Installer/Express/SingleImage/LogFiles/7-18-2020 03-18-47 PM.txt
+BI_Installer/BI_Installer/Express/SingleImage/Reports/7-18-2020 03-18-59 PM.htm
+BookInventorySystem/obj/Debug/View/LoginView.baml
+BookInventorySystem/obj/Debug/View/LoginView.baml
+BookInventorySystem/obj/Release/View/LoginView.baml
+BookInventorySystem/obj/Release/View/LoginView.g.cs
+BookInventorySystem/obj/Release/View/LoginView.g.i.cs

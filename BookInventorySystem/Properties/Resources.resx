@@ -207,4 +207,7 @@
   <data name="UserNotSelectedErrorMsg" xml:space="preserve">
     <value>Please select a user.</value>
   </data>
+  <data name="GetLastBookOrderDetails" xml:space="preserve">
+    <value>dbo.Get_AllPastOrdersOfBook @BookId</value>
+  </data>
 </root>

@@ -8,19 +8,21 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="0.8*"/>
-            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.27*"/>
+            <ColumnDefinition Width="*"/>
+            <!--<ColumnDefinition Width="*"/>-->
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="*"/>
@@ -46,20 +48,23 @@
             </StackPanel>
 
 
-
-
             <StackPanel Grid.Row="5" Grid.Column="1" Margin="0,-20,0,0">
                 <Label Content="Quantity*" Foreground="#FFA2A2A2"/>
                 <Border Style="{StaticResource BorderStyle}" >
                     <TextBox Style="{StaticResource Textbox_style}" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                 </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Row="7" Grid.Column="1" Margin="0,-20,0,0">
+                <Label Content="Search Book" Foreground="#FFA2A2A2"/>
+                <ComboBox IsEditable="True" Background="#757164" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" BorderThickness="0" ItemsSource="{Binding BookCollection}" SelectedItem="{Binding SelectedBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookName" Width="300"/>
                 <TextBlock Text="{Binding ErrorMsg,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ErrorMsgVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="Red" FontWeight="DemiBold"/>
             </StackPanel>
 
 
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1" Background="Transparent" Margin="0,-10,0,0">
+        <Grid Grid.Column="1" Grid.Row="1"  Margin="0,-10,0,0">
 
             <StackPanel>
                 <Button Cursor="Hand" Content="Add" Style="{StaticResource ButtonStyle}" Command="{Binding AddBook}"/>
@@ -71,6 +76,51 @@
         </Grid>
 
         <Grid Grid.Column="2" Grid.RowSpan="2" Margin="20,0,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ListView Margin="10" FontWeight="Bold" Foreground="#FFA2A2A2" FontStyle="Italic" ItemsSource="{Binding BookCollection}" SelectedItem="{Binding SelectedBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="BookId" Width="100" DisplayMemberBinding="{Binding BookId}"/>
+                            <GridViewColumn Header="BookName" Width="100" DisplayMemberBinding="{Binding BookName}" />
+                            <GridViewColumn Header="Author" Width="100" DisplayMemberBinding="{Binding AuthorName}" />
+                            <GridViewColumn Header="Quantity" Width="100" DisplayMemberBinding="{Binding Quantity}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Line HorizontalAlignment="Left" Stretch="Fill" Stroke="#00549c" StrokeThickness="1.5" Y2="1" VerticalAlignment="Top"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Line HorizontalAlignment="Left" Stretch="Fill" Stroke="#00549c" StrokeThickness="1.5"  Y2="1" VerticalAlignment="Top" MaxWidth="715"/>
+                    <ListView Margin="0,10,10,10"  Foreground="#FFA2A2A2"  FontWeight="Bold" FontStyle="Italic" ItemsSource="{Binding PreviousBookOrderCollection}" Background="Transparent">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Book" Width="100" DisplayMemberBinding="{Binding BookName}" />
+                                <GridViewColumn Header="Autor" Width="100" DisplayMemberBinding="{Binding AuthorName}" />
+                                <GridViewColumn Header="Customer" Width="100" DisplayMemberBinding="{Binding CustomerName}"/>
+                                <GridViewColumn Header="DateTime" Width="150" DisplayMemberBinding="{Binding DateTime}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!--<Grid Grid.Column="2" Grid.RowSpan="2" Margin="20,0,0,0">
             <ListView Margin="10" FontWeight="Bold" Foreground="#FFA2A2A2" FontStyle="Italic" ItemsSource="{Binding BookCollection}" SelectedItem="{Binding SelectedBook,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="Transparent">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
@@ -86,6 +136,6 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </Grid>
+        </Grid>-->
     </Grid>
 </UserControl>
