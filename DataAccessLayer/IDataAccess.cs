@@ -10,7 +10,7 @@ namespace DataAccessLayer
     {
         List<T> GetAllData(string StoredProcedureParams);
 
-        List<T> GetAllData(string StoredProcedureParams, T2 obj);
+        List<T2> GetAllData(string StoredProcedureParams, T obj);
 
         Task InsertData(T obj, string StoredProcedureParams);
 

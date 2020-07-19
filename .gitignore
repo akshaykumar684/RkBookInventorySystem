@@ -210,3 +210,6 @@ BI_Installer/BI_Installer/Express/DVD-5/LogFiles/7-19-2020 08-24-40 PM.txt
 BI_Installer/BI_Installer/Express/DVD-5/LogFiles/7-19-2020 08-30-23 PM.txt
 BI_Installer/BI_Installer/Express/DVD-5/Reports/7-19-2020 08-24-45 PM.htm
 BI_Installer/BI_Installer/Express/DVD-5/Reports/7-19-2020 08-30-28 PM.htm
+*.txt
+*.htm
+*.cache

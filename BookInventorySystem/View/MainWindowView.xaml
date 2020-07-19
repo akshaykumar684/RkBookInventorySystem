@@ -18,7 +18,6 @@
             <Grid Height="40">
                 <Label Content="Book Inventory System" FontSize="15" FontWeight="Bold"  Foreground="#FFA2A2A2" HorizontalAlignment="Left"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20 0">
-                    <Button Content="MY ACCOUNT" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2A2A2" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
                     <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=MainWindow}" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                         <materialDesign:PackIcon Kind="Power" Foreground="#FFA2A2A2" Width="25" Height="25" />
                     </Button>

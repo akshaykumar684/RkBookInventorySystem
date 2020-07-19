@@ -62,23 +62,26 @@ namespace BookInventorySystem.ViewModel
 
         private ILogger _log;
 
-        private IDataAccess<BookModel, BookModel> _bookDataAccess;
+        private IDataAccess<BookModel, CustomerHistoryModel> _bookDataAccess;
 
-        private IDataAccess<CustomerModel, CustomerModel> _customerDataAccess;
+        private IDataAccess<CustomerModel, CustomerHistoryModel> _customerDataAccess;
 
         private IDataAccess<CheckOutModel, CheckOutModel> _allPastOrderDataAccess;
+
+        private IDataAccess<CustomerModel, BookModel> _allPastOrderedBookDataAcess;
         public MainWindowViewModel(ILogger Log)
         {
             _log = Log;
-            _bookDataAccess = new DataAccess<BookModel, BookModel>();
-            _customerDataAccess = new DataAccess<CustomerModel, CustomerModel>();
+            _bookDataAccess = new DataAccess<BookModel, CustomerHistoryModel>();
+            _customerDataAccess = new DataAccess<CustomerModel, CustomerHistoryModel>();
             _allPastOrderDataAccess = new DataAccess<CheckOutModel, CheckOutModel>();
+            _allPastOrderedBookDataAcess = new DataAccess<CustomerModel, BookModel>();
             Connection.InitiaizeDataAccessLayer(ConfigurationManager.ConnectionStrings[DbName].ConnectionString);
 
 
             _bookViewModel = new BookViewModel(_log, _bookDataAccess, _allPastOrderDataAccess);
             _customerViewModel = new CustomerViewModel(_log, _customerDataAccess);
-            _checkOutViewModel = new CheckOutViewModel(_log, _bookDataAccess, _customerDataAccess, _allPastOrderDataAccess);
+            _checkOutViewModel = new CheckOutViewModel(_log, _bookDataAccess, _customerDataAccess, _allPastOrderDataAccess, _allPastOrderedBookDataAcess);
             CurrentScreen = _bookViewModel;
             TabSwitchCommand = new ApplicationCommand<object>(TabSwitch);
             CloseWindow = new ApplicationCommand<object>(CloseApplication);

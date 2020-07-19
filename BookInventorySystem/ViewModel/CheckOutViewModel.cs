@@ -136,18 +136,21 @@ namespace BookInventorySystem.ViewModel
 
         private ILogger _log;
 
-        private IDataAccess<BookModel, BookModel> _bookDataAccess;
+        private IDataAccess<BookModel, CustomerHistoryModel> _bookDataAccess;
 
-        private IDataAccess<CustomerModel, CustomerModel> _customerDataAccess;
+        private IDataAccess<CustomerModel, CustomerHistoryModel> _customerDataAccess;
 
         private IDataAccess<CheckOutModel, CheckOutModel> _allCheckInoutOrderDataAccess;
 
-        public CheckOutViewModel(ILogger Log, IDataAccess<BookModel, BookModel> BookDataAccess, IDataAccess<CustomerModel, CustomerModel> CustomerDataAccess, IDataAccess<CheckOutModel, CheckOutModel> AllPastOrderDataAccess)
+        private IDataAccess<CustomerModel, BookModel> _allPastOrderedBookDataAcess;
+
+        public CheckOutViewModel(ILogger Log, IDataAccess<BookModel, CustomerHistoryModel> BookDataAccess, IDataAccess<CustomerModel, CustomerHistoryModel> CustomerDataAccess, IDataAccess<CheckOutModel, CheckOutModel> AllPastOrderDataAccess, IDataAccess<CustomerModel, BookModel> AllPastOrderedBookDataAcess)
         {
             _log = Log;
             _bookDataAccess = BookDataAccess;
             _customerDataAccess = CustomerDataAccess;
             _allCheckInoutOrderDataAccess = AllPastOrderDataAccess;
+            _allPastOrderedBookDataAcess = AllPastOrderedBookDataAcess;
             BookViewModel.BookUpdateEvent += BookViewModel_BookUpdateEvent;
             CustomerViewModel.CustomerUpdateEvent += CustomerViewModel_CustomerUpdateEvent;
             InitializePrperty();
@@ -292,7 +295,7 @@ namespace BookInventorySystem.ViewModel
                 CustomerId = SelectedCustomerHavingBook.CustomerId
             };
             Task<List<BookModel>> task = Task.Run<List<BookModel>>(() => {
-                var t = DataAccess2<BookModel, CustomerModel>.GetAllData(Properties.Resources.GetAllBooksOfSelectedCustomer, _customerModel);
+                var t = _allPastOrderedBookDataAcess.GetAllData(Properties.Resources.GetAllBooksOfSelectedCustomer, _customerModel);
                 return t;
             });
             BookCollectionBelongingToSelectedCustomer.Clear();

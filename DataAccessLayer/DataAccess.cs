@@ -71,27 +71,12 @@ namespace DataAccessLayer
         }
 
 
-        public List<T> GetAllData(string StoredProcedureParams, T2 obj)
+        public List<T2> GetAllData(string StoredProcedureParams, T obj)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
             {
                 //var output = connection.Query<Person>($"select * from People where LastName = '{ lastName }'").ToList();
-                var output = connection.Query<T>(StoredProcedureParams, obj).ToList();
-                return output;
-            }
-        }
-    }
-
-
-
-    public static class DataAccess2<T, T2>
-    {
-        public static List<T> GetAllData(string StoredProcedureParams, T2 obj)
-        {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
-            {
-                //var output = connection.Query<Person>($"select * from People where LastName = '{ lastName }'").ToList();
-                var output = connection.Query<T>(StoredProcedureParams, obj).ToList();
+                var output = connection.Query<T2>(StoredProcedureParams, obj).ToList();
                 return output;
             }
         }
