@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public static class DataAccess<T>
+    public class DataAccess<T> : IDataAccess<T>
     {
-      
-        public static List<T> GetAllData(string StoredProcedureParams)
+        public List<T> GetAllData(string StoredProcedureParams)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
             {
@@ -19,8 +18,8 @@ namespace DataAccessLayer
             }
         }
 
-        
-        public async static Task InsertData(T obj, string StoredProcedureParams)
+
+        public async Task InsertData(T obj, string StoredProcedureParams)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
             {
@@ -34,7 +33,7 @@ namespace DataAccessLayer
             }
         }
 
-        public async static Task UpdateData(T obj, string StoredProcedureParams)
+        public async Task UpdateData(T obj, string StoredProcedureParams)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
             {
@@ -42,24 +41,46 @@ namespace DataAccessLayer
             }
         }
 
-        public async static Task DeleteData(T obj, string StoredProcedureParams)
+
+        public async Task DeleteData(T obj, string StoredProcedureParams)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
             {
                 await connection.ExecuteAsync(StoredProcedureParams, obj);
+            }
+        }
+
+
+
+
+        public async Task CheckOutBook(T obj, string StoredProcedureParams)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
+            {
+                await connection.ExecuteAsync(StoredProcedureParams, obj);
+            }
+        }
+
+        public List<T> GetAllOrderData(string StoredProcedureParams)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
+            {
+                var output = connection.Query<T>(StoredProcedureParams).ToList();
+                return output;
             }
         }
     }
 
 
-    public static class DataAccess<T,T2>
+
+    public static class DataAccess<T, T2>
     {
-        public static List<T> GetAllData(string StoredProcedureParams,T2 obj)
+        public static List<T> GetAllData(string StoredProcedureParams, T2 obj)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
             {
                 //var output = connection.Query<Person>($"select * from People where LastName = '{ lastName }'").ToList();
-                var output = connection.Query<T>(StoredProcedureParams,obj).ToList();
+                var output = connection.Query<T>(StoredProcedureParams, obj).ToList();
                 return output;
             }
         }

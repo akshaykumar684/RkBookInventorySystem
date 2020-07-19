@@ -72,7 +72,7 @@ namespace BookInventorySystem.ViewModel
 
             set
             {
-                 value = Regex.Replace(value, @"[^0-9]+", "");
+                value = Regex.Replace(value, @"[^0-9]+", "");
                 _quantity = value;
                 OnPropertyChange();
             }
@@ -87,7 +87,7 @@ namespace BookInventorySystem.ViewModel
             set
             {
                 _selectedBook = value;
-                if(value!=null)
+                if (value != null)
                     FillAllField(value);
                 OnPropertyChange();
                 GetLastPurchaseHistory(value);
@@ -136,7 +136,7 @@ namespace BookInventorySystem.ViewModel
             {
                 string result = null;
 
-                
+
                 if (columnName == "BookName")
                 {
                     if (String.IsNullOrEmpty(BookName))
@@ -155,7 +155,7 @@ namespace BookInventorySystem.ViewModel
                         result = Properties.Resources.QuantityErrorMsg;
                 }
 
-                
+
                 return result;
             }
         }
@@ -165,17 +165,20 @@ namespace BookInventorySystem.ViewModel
         public ObservableCollection<CustomerHistoryModel> PreviousBookOrderCollection { get; set; }
 
         private ILogger _log;
-
-        public BookViewModel(ILogger Log)
+        private IDataAccess<BookModel> _dataAccess;
+        private IDataAccess<CheckOutModel> _allPastOrderDataAccess;
+        public BookViewModel(ILogger Log, IDataAccess<BookModel> DataAccess, IDataAccess<CheckOutModel> AllPastOrderDataAccess)
         {
             _log = Log;
+            _dataAccess = DataAccess;
+            _allPastOrderDataAccess = AllPastOrderDataAccess;
             InitializeProperty();
             CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             GetBooks();
             GetAllOrders();
         }
 
-       
+
 
         private void InitializeProperty()
         {
@@ -229,20 +232,20 @@ namespace BookInventorySystem.ViewModel
             };
 
             _log.Message("Updating Book");
-            await DataAccess<BookModel>.UpdateData(book,Properties.Resources.UpdateBook);
+            await _dataAccess.UpdateData(book, Properties.Resources.UpdateBook);
             GetBooks();
             InvokeBookUpdate();
             ClearAllField();
         }
-        
+
         private async void GetBooks()
         {
             ErrorMsgVisibility = Visibility.Collapsed;
             BookCollection.Clear();
 
             Task<List<BookModel>> task = Task.Run<List<BookModel>>(() => {
-              var t =  DataAccess<BookModel>.GetAllData(Properties.Resources.GetAllBooks);
-              return t;
+                var t = _dataAccess.GetAllData(Properties.Resources.GetAllBooks);
+                return t;
             });
             _log.Message("Getting All the bok from Database");
             var booksCollection = await task;
@@ -260,13 +263,13 @@ namespace BookInventorySystem.ViewModel
 
             // Check if there is already a book with same name and same authorname
 
-            if(_searchedBook!=null && _searchedBook.BookName == BookName)
+            if (_searchedBook != null && _searchedBook.BookName == BookName)
             {
                 ErrorMsg = Properties.Resources.SameBookExistMsg;
                 ErrorMsgVisibility = Visibility.Visible;
                 return;
             }
-            
+
             BookModel book = new BookModel()
             {
                 BookId = DateTime.Now.ToString().GetHashCode().ToString("x"),
@@ -276,7 +279,7 @@ namespace BookInventorySystem.ViewModel
             };
 
             _log.Message("Adding NewBook");
-            await DataAccess<BookModel>.InsertData(book,Properties.Resources.InsertBook);
+            await _dataAccess.InsertData(book, Properties.Resources.InsertBook);
             GetBooks();
             InvokeBookUpdate();
             ClearAllField();
@@ -305,13 +308,13 @@ namespace BookInventorySystem.ViewModel
                 }
 
                 var tx = AllOrderData.FirstOrDefault(t => t.BookId == SelectedBook.BookId && t.HasBook == 1);
-                if(tx!=null)
+                if (tx != null)
                 {
                     ErrorMsg = "Cannot Delete this book.Someuser owns it\n Please delete that user or return the book";
                     ErrorMsgVisibility = Visibility.Visible;
                     return;
                 }
-                await DataAccess<BookModel>.DeleteData(SelectedBook,Properties.Resources.DeleteBook);
+                await _dataAccess.DeleteData(SelectedBook, Properties.Resources.DeleteBook);
                 _log.Message("Deleteing Book having BookId: " + SelectedBook.BookId);
                 GetBooks();
                 InvokeBookUpdate();
@@ -323,7 +326,7 @@ namespace BookInventorySystem.ViewModel
             }
         }
 
-       
+
 
         private void FillAllField(BookModel book)
         {
@@ -348,7 +351,7 @@ namespace BookInventorySystem.ViewModel
         private async void GetAllOrders()
         {
             Task<List<CheckOutModel>> task = Task.Run<List<CheckOutModel>>(() => {
-                var t = CheckOutIn<CheckOutModel>.GetAllOrderData(Properties.Resources.GetAllOrders);
+                var t = _allPastOrderDataAccess.GetAllOrderData(Properties.Resources.GetAllOrders);
                 return t;
             });
             _log.Message("Getting All Orders Details from the database");

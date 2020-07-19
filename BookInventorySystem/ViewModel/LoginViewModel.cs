@@ -56,13 +56,13 @@ namespace BookInventorySystem.ViewModel
             ErrorMsgVisibility = Visibility.Hidden;
             var win = parameter as Window;
             await GetBooks();
-            if(AdminList.Count==0)
+            if (AdminList.Count == 0)
                 ErrorMsgVisibility = Visibility.Visible;
             else
             {
                 MainWindowView _mainWindow = new MainWindowView();
                 _mainWindow.Show();
-                if(win!=null)
+                if (win != null)
                     win.Close();
             }
         }
@@ -79,7 +79,7 @@ namespace BookInventorySystem.ViewModel
             };
 
             Task<List<AdminModel>> task = Task.Run<List<AdminModel>>(() => {
-                var t = DataAccess<AdminModel,AdminModel>.GetAllData(Properties.Resources.GetAdminList,_admin);
+                var t = DataAccess<AdminModel, AdminModel>.GetAllData(Properties.Resources.GetAdminList, _admin);
                 return t;
             });
             var adminCollection = await task;

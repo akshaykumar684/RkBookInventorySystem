@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
 using BILogger;
+using BookInventorySystem.Model;
 
 namespace BookInventorySystem.ViewModel
 {
@@ -60,15 +61,24 @@ namespace BookInventorySystem.ViewModel
         const string DbName = "SampleDB";
 
         private ILogger _log;
+
+        private IDataAccess<BookModel> _bookDataAccess;
+
+        private IDataAccess<CustomerModel> _customerDataAccess;
+
+        private IDataAccess<CheckOutModel> _allPastOrderDataAccess;
         public MainWindowViewModel(ILogger Log)
         {
             _log = Log;
+            _bookDataAccess = new DataAccess<BookModel>();
+            _customerDataAccess = new DataAccess<CustomerModel>();
+            _allPastOrderDataAccess = new DataAccess<CheckOutModel>();
             Connection.InitiaizeDataAccessLayer(ConfigurationManager.ConnectionStrings[DbName].ConnectionString);
 
 
-            _bookViewModel = new BookViewModel(_log);
-            _customerViewModel = new CustomerViewModel(_log);
-            _checkOutViewModel = new CheckOutViewModel(_log);
+            _bookViewModel = new BookViewModel(_log, _bookDataAccess, _allPastOrderDataAccess);
+            _customerViewModel = new CustomerViewModel(_log, _customerDataAccess);
+            _checkOutViewModel = new CheckOutViewModel(_log, _bookDataAccess, _customerDataAccess, _allPastOrderDataAccess);
             CurrentScreen = _bookViewModel;
             TabSwitchCommand = new ApplicationCommand<object>(TabSwitch);
             CloseWindow = new ApplicationCommand<object>(CloseApplication);

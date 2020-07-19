@@ -13,7 +13,7 @@ namespace BookInventorySystem.ViewModel
 {
     public class CheckOutViewModel : ViewModelBase
     {
-       
+
         private BookModel _selectedBook;
 
         public BookModel SelectedBook
@@ -135,13 +135,23 @@ namespace BookInventorySystem.ViewModel
         public static event EventHandler CheckInOutUpdateEvent;
 
         private ILogger _log;
-        public CheckOutViewModel(ILogger Log)
+
+        private IDataAccess<BookModel> _bookDataAccess;
+
+        private IDataAccess<CustomerModel> _customerDataAccess;
+
+        private IDataAccess<CheckOutModel> _allCheckInoutOrderDataAccess;
+
+        public CheckOutViewModel(ILogger Log, IDataAccess<BookModel> BookDataAccess, IDataAccess<CustomerModel> CustomerDataAccess, IDataAccess<CheckOutModel> AllPastOrderDataAccess)
         {
             _log = Log;
+            _bookDataAccess = BookDataAccess;
+            _customerDataAccess = CustomerDataAccess;
+            _allCheckInoutOrderDataAccess = AllPastOrderDataAccess;
             BookViewModel.BookUpdateEvent += BookViewModel_BookUpdateEvent;
             CustomerViewModel.CustomerUpdateEvent += CustomerViewModel_CustomerUpdateEvent;
             InitializePrperty();
-            
+
         }
 
         private void InitializePrperty()
@@ -186,14 +196,14 @@ namespace BookInventorySystem.ViewModel
                     Quantity = SelectedBookOfSelectedCustomer.Quantity + 1
                 };
 
-                await CheckOutIn<CheckOutModel>.CheckOutBook(obj, Properties.Resources.CheckInBook);
+                await _allCheckInoutOrderDataAccess.CheckOutBook(obj, Properties.Resources.CheckInBook);
                 _log.Message("Checkin book ");
                 RaiseCheckInOutEvent();
                 GetAllOrders();
                 GetBooks();
                 GetAllCustomerHavingBook();
                 BookCollectionBelongingToSelectedCustomer.Clear();
-                
+
             }
             else
             {
@@ -215,7 +225,7 @@ namespace BookInventorySystem.ViewModel
                 }
                 ///Check if the user has already taken the same book previously
                 var tx = AllOrderData.Where(t => t.BookId == SelectedBook.BookId && t.CustomerId == SelectedCustomer.CustomerId && t.HasBook == 1).ToList();
-                if (tx.Count!=0)
+                if (tx.Count != 0)
                 {
                     //MessageBox.Show("This User has this book");
                     CheckOutErrorMessage = Properties.Resources.UserAlreadyHasBookMsg;
@@ -234,7 +244,7 @@ namespace BookInventorySystem.ViewModel
                     Quantity = SelectedBook.Quantity - 1
                 };
 
-                await CheckOutIn<CheckOutModel>.CheckOutBook(_checkOutModel, Properties.Resources.CheckOutBook);
+                await _allCheckInoutOrderDataAccess.CheckOutBook(_checkOutModel, Properties.Resources.CheckOutBook);
                 _log.Message("CheckOut book ");
                 GetAllOrders();
                 GetBooks();
@@ -251,7 +261,7 @@ namespace BookInventorySystem.ViewModel
         private async void GetBooks()
         {
             Task<List<BookModel>> task = Task.Run<List<BookModel>>(() => {
-                var t = DataAccess<BookModel>.GetAllData(Properties.Resources.GetAllBooks);
+                var t = _bookDataAccess.GetAllData(Properties.Resources.GetAllBooks);
                 return t;
             });
             BookCollection.Clear();
@@ -263,7 +273,7 @@ namespace BookInventorySystem.ViewModel
         private async void GetAllCustomer()
         {
             Task<List<CustomerModel>> task = Task.Run<List<CustomerModel>>(() => {
-                var t = DataAccess<CustomerModel>.GetAllData(Properties.Resources.GetAllCustomer);
+                var t = _customerDataAccess.GetAllData(Properties.Resources.GetAllCustomer);
                 return t;
             });
             CustomerCollection.Clear();
@@ -282,7 +292,7 @@ namespace BookInventorySystem.ViewModel
                 CustomerId = SelectedCustomerHavingBook.CustomerId
             };
             Task<List<BookModel>> task = Task.Run<List<BookModel>>(() => {
-                var t = DataAccess<BookModel,CustomerModel>.GetAllData(Properties.Resources.GetAllBooksOfSelectedCustomer, _customerModel);
+                var t = DataAccess<BookModel, CustomerModel>.GetAllData(Properties.Resources.GetAllBooksOfSelectedCustomer, _customerModel);
                 return t;
             });
             BookCollectionBelongingToSelectedCustomer.Clear();
@@ -299,7 +309,7 @@ namespace BookInventorySystem.ViewModel
         {
             CustomerCollectionHavingBook.Clear();
             Task<List<CustomerModel>> task = Task.Run<List<CustomerModel>>(() => {
-                var t = DataAccess<CustomerModel>.GetAllData(Properties.Resources.GetAllCustomerHavingBook);
+                var t = _customerDataAccess.GetAllData(Properties.Resources.GetAllCustomerHavingBook);
                 return t;
             });
             _log.Message("Getting All customer from the database");
@@ -312,7 +322,7 @@ namespace BookInventorySystem.ViewModel
         private async void GetAllOrders()
         {
             Task<List<CheckOutModel>> task = Task.Run<List<CheckOutModel>>(() => {
-                var t = CheckOutIn<CheckOutModel>.GetAllOrderData(Properties.Resources.GetAllOrders);
+                var t = _allCheckInoutOrderDataAccess.GetAllOrderData(Properties.Resources.GetAllOrders);
                 return t;
             });
             _log.Message("Getting all order details");

@@ -16,7 +16,7 @@ namespace BookInventorySystem.ViewModel
 {
     public class CustomerViewModel : ViewModelBase, IDataErrorInfo
     {
-        
+
         private string _customerId;
 
         public string CustomerId
@@ -80,7 +80,7 @@ namespace BookInventorySystem.ViewModel
             set
             {
                 _selectedCustomer = value;
-                if(value!=null)
+                if (value != null)
                     FillAllField(value);
                 GetLastPurchaseHistory(value);
                 ErrorMsgVisibility = Visibility.Collapsed;
@@ -105,7 +105,7 @@ namespace BookInventorySystem.ViewModel
 
         public Visibility ErrorMsgVisibility
         {
-            get { return _errorMsgVisibility;}
+            get { return _errorMsgVisibility; }
             set
             {
                 _errorMsgVisibility = value;
@@ -132,16 +132,19 @@ namespace BookInventorySystem.ViewModel
         private MessagePopUp _messagePopup;
 
         private ILogger _log;
-        public CustomerViewModel(ILogger Log)
+
+        private IDataAccess<CustomerModel> _customerDataAccess;
+        public CustomerViewModel(ILogger Log, IDataAccess<CustomerModel> CustomerDataAccess)
         {
             _log = Log;
+            _customerDataAccess = CustomerDataAccess;
             CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             InitializeProperty();
             GetAllCustomer();
             ErrorMsgVisibility = Visibility.Collapsed;
         }
 
-       
+
 
         private void InitializeProperty()
         {
@@ -225,13 +228,13 @@ namespace BookInventorySystem.ViewModel
             };
 
             _log.Message("Adding New User having UserId :" + customer.CustomerId);
-            await DataAccess<CustomerModel>.InsertData(customer, Properties.Resources.AddUser);
+            await _customerDataAccess.InsertData(customer, Properties.Resources.AddUser);
             GetAllCustomer();
             ClearAllField();
             InvokeCustomerUpdateEvent();
         }
 
-        
+
 
         private async void UpdateCustomer()
         {
@@ -242,7 +245,7 @@ namespace BookInventorySystem.ViewModel
                 ErrorMsgVisibility = Visibility.Visible;
                 return;
             }
-                
+
 
             var _searchedCustomer = CustomerCollection.FirstOrDefault(s => s.CustomerName == CustomerName);
 
@@ -265,7 +268,7 @@ namespace BookInventorySystem.ViewModel
             };
 
             _log.Message("Updating Customer Having Customer Id: " + customer.CustomerId);
-            await DataAccess<CustomerModel>.UpdateData(customer, Properties.Resources.UpdateCustomer);
+            await _customerDataAccess.UpdateData(customer, Properties.Resources.UpdateCustomer);
             GetAllCustomer();
             ClearAllField();
             InvokeCustomerUpdateEvent();
@@ -283,17 +286,17 @@ namespace BookInventorySystem.ViewModel
                     ErrorMsgVisibility = Visibility.Visible;
                     return;
                 }
-                    
+
                 _canDeleteUser = true;
                 /// Check if the selected user has taken some book
                 var _customerHasBook = PreviousBookOrderCollection.FirstOrDefault(t => t.HasBook == 1);
-                if(_customerHasBook!=null)
+                if (_customerHasBook != null)
                 {
                     ShowMessagePopup("This User has Book.");
                 }
                 if (_canDeleteUser)
                 {
-                    await DataAccess<CustomerModel>.DeleteData(SelectedCustomer, Properties.Resources.DeleteCustomer);
+                    await _customerDataAccess.DeleteData(SelectedCustomer, Properties.Resources.DeleteCustomer);
                     GetAllCustomer();
                     ClearAllField();
                     InvokeCustomerUpdateEvent();
@@ -319,9 +322,9 @@ namespace BookInventorySystem.ViewModel
                 _canDeleteUser = false;
                 _messagePopup.Close();
             };
-           
 
-             _messagePopup.ShowDialog();
+
+            _messagePopup.ShowDialog();
         }
 
 
@@ -330,7 +333,7 @@ namespace BookInventorySystem.ViewModel
             CustomerCollection.Clear();
 
             Task<List<CustomerModel>> task = Task.Run<List<CustomerModel>>(() => {
-                var t = DataAccess<CustomerModel>.GetAllData(Properties.Resources.GetAllCustomer);
+                var t = _customerDataAccess.GetAllData(Properties.Resources.GetAllCustomer);
                 return t;
             });
             _log.Message("Getting All Customer from the database");
@@ -358,7 +361,7 @@ namespace BookInventorySystem.ViewModel
         private async void GetLastPurchaseHistory(CustomerModel _customer)
         {
             Task<List<CustomerHistoryModel>> task = Task.Run<List<CustomerHistoryModel>>(() => {
-                var t = DataAccess<CustomerHistoryModel,CustomerModel>.GetAllData(Properties.Resources.GetLastOrderDetails,_customer);
+                var t = DataAccess<CustomerHistoryModel, CustomerModel>.GetAllData(Properties.Resources.GetLastOrderDetails, _customer);
                 return t;
             });
             PreviousBookOrderCollection.Clear();
