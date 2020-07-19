@@ -213,3 +213,16 @@ BI_Installer/BI_Installer/Express/DVD-5/Reports/7-19-2020 08-30-28 PM.htm
 *.txt
 *.htm
 *.cache
+BILogger/bin/Release/BILogger.dll
+BILogger/bin/Release/BILogger.pdb
+BILogger/obj/Release/BILogger.dll
+BILogger/obj/Release/BILogger.pdb
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/BIHelp.chm
+BILogger/obj/Release/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+BILogger/obj/Release/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+BILogger/obj/Release/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+BookInventorySystem/bin/Debug/Database/BIHelp.chm
+BookInventorySystem/bin/Release/BIHelp.chm
+BookInventorySystem/bin/Release/BILogger.dll
+BookInventorySystem/bin/Release/BILogger.pdb
+BookInventorySystem/obj/Debug/build.force

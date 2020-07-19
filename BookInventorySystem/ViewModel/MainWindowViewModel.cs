@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using BILogger;
 using BookInventorySystem.Model;
+using System;
 
 namespace BookInventorySystem.ViewModel
 {
@@ -14,6 +15,8 @@ namespace BookInventorySystem.ViewModel
         public ICommand TabSwitchCommand { get; set; }
 
         public ICommand CloseWindow { get; set; }
+
+        public ICommand HelpCommand { get; set; }
 
         private Thickness _gridMargin;
 
@@ -85,7 +88,7 @@ namespace BookInventorySystem.ViewModel
             CurrentScreen = _bookViewModel;
             TabSwitchCommand = new ApplicationCommand<object>(TabSwitch);
             CloseWindow = new ApplicationCommand<object>(CloseApplication);
-
+            HelpCommand = new ApplicationCommand(OpenAppHelpManual);
             _log.Message("Application started inside mainViewModel");
 
             //TabItems = new ObservableCollection<ViewModelBase>();
@@ -94,6 +97,7 @@ namespace BookInventorySystem.ViewModel
             //TabItems.Add(new CheckOutViewModel());
         }
 
+        
         private void TabSwitch(object parameter)
         {
             var _button = parameter as Button;
@@ -122,6 +126,12 @@ namespace BookInventorySystem.ViewModel
                 }
             }
         }
+
+        private void OpenAppHelpManual()
+        {
+            System.Diagnostics.Process.Start(@"BIHelp.chm");
+        }
+
 
         private void CloseApplication(object Parameter)
         {
