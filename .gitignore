@@ -178,3 +178,24 @@ BookInventorySystem/obj/Debug/View/LoginView.g.i.cs
 BookInventorySystem/obj/Debug/View/MessagePopUp.baml
 BookInventorySystem/obj/Debug/View/MessagePopUp.g.cs
 BookInventorySystem/obj/Debug/View/MessagePopUp.g.i.cs
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/BILogger.dll
+BI_Installer/BI_Installer/Express/DVD-5/LogFiles/7-19-2020 03-09-27 PM.txt
+BI_Installer/BI_Installer/Express/DVD-5/LogFiles/7-19-2020 03-17-56 PM.txt
+BI_Installer/BI_Installer/Express/DVD-5/LogFiles/7-19-2020 04-12-46 PM.txt
+BI_Installer/BI_Installer/Express/DVD-5/LogFiles/7-19-2020 04-37-00 PM.txt
+BI_Installer/BI_Installer/Express/DVD-5/Reports/7-19-2020 03-09-37 PM.htm
+BI_Installer/BI_Installer/Express/DVD-5/Reports/7-19-2020 03-18-01 PM.htm
+BI_Installer/BI_Installer/Express/DVD-5/Reports/7-19-2020 04-12-53 PM.htm
+BI_Installer/BI_Installer/Express/DVD-5/Reports/7-19-2020 04-37-06 PM.htm
+BILogger/bin/Debug/BILogger.dll
+BILogger/bin/Debug/BILogger.pdb
+BILogger/obj/Debug/BILogger.csproj.FileListAbsolute.txt
+BILogger/obj/Debug/BILogger.csprojResolveAssemblyReference.cache
+BILogger/obj/Debug/BILogger.dll
+BILogger/obj/Debug/BILogger.pdb
+BILogger/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+BILogger/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+BILogger/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+BILogger/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+BookInventorySystem/bin/Debug/BILogger.dll
+BookInventorySystem/bin/Debug/BILogger.pdb

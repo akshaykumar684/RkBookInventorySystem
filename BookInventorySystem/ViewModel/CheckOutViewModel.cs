@@ -1,4 +1,5 @@
-﻿using BookInventorySystem.Model;
+﻿using BILogger;
+using BookInventorySystem.Model;
 using DataAccessLayer;
 using System;
 using System.Collections.Generic;
@@ -132,10 +133,11 @@ namespace BookInventorySystem.ViewModel
         public List<CheckOutModel> AllOrderData { get; set; }
 
         public static event EventHandler CheckInOutUpdateEvent;
-        
 
-        public CheckOutViewModel()
+        private ILogger _log;
+        public CheckOutViewModel(ILogger Log)
         {
+            _log = Log;
             BookViewModel.BookUpdateEvent += BookViewModel_BookUpdateEvent;
             CustomerViewModel.CustomerUpdateEvent += CustomerViewModel_CustomerUpdateEvent;
             InitializePrperty();
@@ -185,6 +187,7 @@ namespace BookInventorySystem.ViewModel
                 };
 
                 await CheckOutIn<CheckOutModel>.CheckOutBook(obj, Properties.Resources.CheckInBook);
+                _log.Message("Checkin book ");
                 RaiseCheckInOutEvent();
                 GetAllOrders();
                 GetBooks();
@@ -194,7 +197,8 @@ namespace BookInventorySystem.ViewModel
             }
             else
             {
-                MessageBox.Show("Please Select All field");
+                CheckInErrorMessage = Properties.Resources.EmptyFieldErrorMsg;
+                CheckInErrorMessageVisibility = Visibility.Visible;
             }
         }
 
@@ -231,6 +235,7 @@ namespace BookInventorySystem.ViewModel
                 };
 
                 await CheckOutIn<CheckOutModel>.CheckOutBook(_checkOutModel, Properties.Resources.CheckOutBook);
+                _log.Message("CheckOut book ");
                 GetAllOrders();
                 GetBooks();
                 GetAllCustomerHavingBook();
@@ -238,7 +243,8 @@ namespace BookInventorySystem.ViewModel
             }
             else
             {
-                MessageBox.Show("Please Select All field");
+                CheckOutErrorMessage = Properties.Resources.EmptyFieldErrorMsg;
+                CheckOutErrorMessageVisibility = Visibility.Visible;
             }
         }
 
@@ -249,6 +255,7 @@ namespace BookInventorySystem.ViewModel
                 return t;
             });
             BookCollection.Clear();
+            _log.Message("Getting All books from the database");
             var booksCollection = await task;
             booksCollection.ForEach(t => BookCollection.Add(t));
         }
@@ -260,6 +267,7 @@ namespace BookInventorySystem.ViewModel
                 return t;
             });
             CustomerCollection.Clear();
+            _log.Message("Getting All Customer from the database");
             var _customerCollection = await task;
             _customerCollection.ForEach(t => CustomerCollection.Add(t));
         }
@@ -278,6 +286,7 @@ namespace BookInventorySystem.ViewModel
                 return t;
             });
             BookCollectionBelongingToSelectedCustomer.Clear();
+            _log.Message("Getting All books of selected user from the database");
             var booksCollectionOfSelectedUser = await task;
             booksCollectionOfSelectedUser.ForEach(t => BookCollectionBelongingToSelectedCustomer.Add(t));
         }
@@ -293,7 +302,7 @@ namespace BookInventorySystem.ViewModel
                 var t = DataAccess<CustomerModel>.GetAllData(Properties.Resources.GetAllCustomerHavingBook);
                 return t;
             });
-            
+            _log.Message("Getting All customer from the database");
             var _customerCollectionHavingBook = await task;
             _customerCollectionHavingBook.ForEach(t => CustomerCollectionHavingBook.Add(t));
         }
@@ -306,6 +315,7 @@ namespace BookInventorySystem.ViewModel
                 var t = CheckOutIn<CheckOutModel>.GetAllOrderData(Properties.Resources.GetAllOrders);
                 return t;
             });
+            _log.Message("Getting all order details");
             var orderCollection = await task;
             AllOrderData.Clear();
             orderCollection.ForEach(_order => AllOrderData.Add(_order));
@@ -323,8 +333,8 @@ namespace BookInventorySystem.ViewModel
 
         private void VisibilityCollapser()
         {
-            CheckInErrorMessageVisibility = Visibility.Collapsed;
-            CheckOutErrorMessageVisibility = Visibility.Collapsed;
+            CheckInErrorMessageVisibility = Visibility.Hidden;
+            CheckOutErrorMessageVisibility = Visibility.Hidden;
         }
     }
 }

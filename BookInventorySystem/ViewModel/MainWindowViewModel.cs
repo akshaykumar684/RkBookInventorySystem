@@ -4,13 +4,12 @@ using System.Configuration;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
+using BILogger;
 
 namespace BookInventorySystem.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-
-
         public ICommand TabSwitchCommand { get; set; }
 
         public ICommand CloseWindow { get; set; }
@@ -59,24 +58,27 @@ namespace BookInventorySystem.ViewModel
         private CheckOutViewModel _checkOutViewModel;
 
         const string DbName = "SampleDB";
-        public MainWindowViewModel()
+
+        private ILogger _log;
+        public MainWindowViewModel(ILogger Log)
         {
+            _log = Log;
             Connection.InitiaizeDataAccessLayer(ConfigurationManager.ConnectionStrings[DbName].ConnectionString);
 
 
+            _bookViewModel = new BookViewModel(_log);
+            _customerViewModel = new CustomerViewModel(_log);
+            _checkOutViewModel = new CheckOutViewModel(_log);
+            CurrentScreen = _bookViewModel;
+            TabSwitchCommand = new ApplicationCommand<object>(TabSwitch);
+            CloseWindow = new ApplicationCommand<object>(CloseApplication);
+
+            _log.Message("Application started inside mainViewModel");
 
             //TabItems = new ObservableCollection<ViewModelBase>();
             //TabItems.Add(new BookViewModel());
             //TabItems.Add(new CustomerViewModel());
             //TabItems.Add(new CheckOutViewModel());
-
-
-            _bookViewModel = new BookViewModel();
-            _customerViewModel = new CustomerViewModel();
-            _checkOutViewModel = new CheckOutViewModel();
-            CurrentScreen = _bookViewModel;
-            TabSwitchCommand = new ApplicationCommand<object>(TabSwitch);
-            CloseWindow = new ApplicationCommand<object>(CloseApplication);
         }
 
         private void TabSwitch(object parameter)
@@ -114,6 +116,7 @@ namespace BookInventorySystem.ViewModel
 
             if (_window != null)
             {
+                _log.Message("Shutting Down Application.....");
                 _window.Close();
             }
         }

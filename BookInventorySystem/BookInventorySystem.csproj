@@ -177,6 +177,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BILogger\BILogger.csproj">
+      <Project>{11A109F5-FB09-4F90-830C-3D2939DDEEA9}</Project>
+      <Name>BILogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{2b94bb6a-d240-4786-889a-97447969255f}</Project>
       <Name>DataAccessLayer</Name>

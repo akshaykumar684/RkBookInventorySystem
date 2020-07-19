@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows;
 using BookInventorySystem.View;
 using System.ComponentModel;
+using BILogger;
 
 namespace BookInventorySystem.ViewModel
 {
@@ -129,8 +130,11 @@ namespace BookInventorySystem.ViewModel
         public static event EventHandler CustomerUpdateEvent;
 
         private MessagePopUp _messagePopup;
-        public CustomerViewModel()
+
+        private ILogger _log;
+        public CustomerViewModel(ILogger Log)
         {
+            _log = Log;
             CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             InitializeProperty();
             GetAllCustomer();
@@ -220,6 +224,7 @@ namespace BookInventorySystem.ViewModel
                 PhoneNo = this.PhoneNo
             };
 
+            _log.Message("Adding New User having UserId :" + customer.CustomerId);
             await DataAccess<CustomerModel>.InsertData(customer, Properties.Resources.AddUser);
             GetAllCustomer();
             ClearAllField();
@@ -259,6 +264,7 @@ namespace BookInventorySystem.ViewModel
                 PhoneNo = this.PhoneNo
             };
 
+            _log.Message("Updating Customer Having Customer Id: " + customer.CustomerId);
             await DataAccess<CustomerModel>.UpdateData(customer, Properties.Resources.UpdateCustomer);
             GetAllCustomer();
             ClearAllField();
@@ -292,6 +298,7 @@ namespace BookInventorySystem.ViewModel
                     ClearAllField();
                     InvokeCustomerUpdateEvent();
                     PreviousBookOrderCollection.Clear();
+                    _log.Message("Deleting Customer Having CustomerID :" + SelectedCustomer.CustomerId);
                 }
             }
             catch (System.Data.SqlClient.SqlException ex)
@@ -326,6 +333,7 @@ namespace BookInventorySystem.ViewModel
                 var t = DataAccess<CustomerModel>.GetAllData(Properties.Resources.GetAllCustomer);
                 return t;
             });
+            _log.Message("Getting All Customer from the database");
             var _customerCollection = await task;
             _customerCollection.ForEach(t => CustomerCollection.Add(t));
         }
@@ -354,6 +362,7 @@ namespace BookInventorySystem.ViewModel
                 return t;
             });
             PreviousBookOrderCollection.Clear();
+            _log.Message("Getting all last purchase history from the database");
             var _lastHistoryCollection = await task;
             _lastHistoryCollection.ForEach(t => PreviousBookOrderCollection.Add(t));
         }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.ComponentModel;
+using BILogger;
 
 namespace BookInventorySystem.ViewModel
 {
@@ -163,8 +164,11 @@ namespace BookInventorySystem.ViewModel
 
         public ObservableCollection<CustomerHistoryModel> PreviousBookOrderCollection { get; set; }
 
-        public BookViewModel()
+        private ILogger _log;
+
+        public BookViewModel(ILogger Log)
         {
+            _log = Log;
             InitializeProperty();
             CheckOutViewModel.CheckInOutUpdateEvent += CheckOutViewModel_CheckInOutUpdateEvent;
             GetBooks();
@@ -224,6 +228,7 @@ namespace BookInventorySystem.ViewModel
                 Quantity = Convert.ToInt32(this.Quantity)
             };
 
+            _log.Message("Updating Book");
             await DataAccess<BookModel>.UpdateData(book,Properties.Resources.UpdateBook);
             GetBooks();
             InvokeBookUpdate();
@@ -239,6 +244,7 @@ namespace BookInventorySystem.ViewModel
               var t =  DataAccess<BookModel>.GetAllData(Properties.Resources.GetAllBooks);
               return t;
             });
+            _log.Message("Getting All the bok from Database");
             var booksCollection = await task;
             booksCollection.ForEach(t => BookCollection.Add(t));
         }
@@ -269,6 +275,7 @@ namespace BookInventorySystem.ViewModel
                 Quantity = Convert.ToInt32(this.Quantity)
             };
 
+            _log.Message("Adding NewBook");
             await DataAccess<BookModel>.InsertData(book,Properties.Resources.InsertBook);
             GetBooks();
             InvokeBookUpdate();
@@ -305,13 +312,14 @@ namespace BookInventorySystem.ViewModel
                     return;
                 }
                 await DataAccess<BookModel>.DeleteData(SelectedBook,Properties.Resources.DeleteBook);
+                _log.Message("Deleteing Book having BookId: " + SelectedBook.BookId);
                 GetBooks();
                 InvokeBookUpdate();
                 ClearAllField();
             }
             catch (System.Data.SqlClient.SqlException ex)
             {
-                MessageBox.Show(ex.Message);
+                _log.Error(ex);
             }
         }
 
@@ -343,6 +351,7 @@ namespace BookInventorySystem.ViewModel
                 var t = CheckOutIn<CheckOutModel>.GetAllOrderData(Properties.Resources.GetAllOrders);
                 return t;
             });
+            _log.Message("Getting All Orders Details from the database");
             var orderCollection = await task;
             AllOrderData.Clear();
             orderCollection.ForEach(_order => AllOrderData.Add(_order));
@@ -355,6 +364,7 @@ namespace BookInventorySystem.ViewModel
                 return t;
             });
             PreviousBookOrderCollection.Clear();
+            _log.Message("Getting All the last order history of book " + _book.BookId);
             var _lastHistoryCollection = await task;
             _lastHistoryCollection.ForEach(t => PreviousBookOrderCollection.Add(t));
         }

@@ -12,6 +12,8 @@ Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "BI_Installer", "BI_Installe
 		{5F8CA2E9-256D-481E-9E49-C79B61950B4B} = {5F8CA2E9-256D-481E-9E49-C79B61950B4B}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BILogger", "BILogger\BILogger.csproj", "{11A109F5-FB09-4F90-830C-3D2939DDEEA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -51,6 +53,16 @@ Global
 		{473BFA38-8AD1-4926-AC9E-8EFD70A2A69A}.Release|Any CPU.Build.0 = SingleImage
 		{473BFA38-8AD1-4926-AC9E-8EFD70A2A69A}.SingleImage|Any CPU.ActiveCfg = SingleImage
 		{473BFA38-8AD1-4926-AC9E-8EFD70A2A69A}.SingleImage|Any CPU.Build.0 = SingleImage
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{11A109F5-FB09-4F90-830C-3D2939DDEEA9}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using BookInventorySystem.ViewModel;
+﻿using BILogger;
+using BookInventorySystem.ViewModel;
 using System.Windows;
 
 namespace BookInventorySystem.View
@@ -11,7 +12,8 @@ namespace BookInventorySystem.View
         public MainWindowView()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
+            ILogger _log = new Logger();
+            this.DataContext = new MainWindowViewModel(_log);
         }
     }
 }
