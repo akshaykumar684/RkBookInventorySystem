@@ -62,17 +62,17 @@ namespace BookInventorySystem.ViewModel
 
         private ILogger _log;
 
-        private IDataAccess<BookModel> _bookDataAccess;
+        private IDataAccess<BookModel, BookModel> _bookDataAccess;
 
-        private IDataAccess<CustomerModel> _customerDataAccess;
+        private IDataAccess<CustomerModel, CustomerModel> _customerDataAccess;
 
-        private IDataAccess<CheckOutModel> _allPastOrderDataAccess;
+        private IDataAccess<CheckOutModel, CheckOutModel> _allPastOrderDataAccess;
         public MainWindowViewModel(ILogger Log)
         {
             _log = Log;
-            _bookDataAccess = new DataAccess<BookModel>();
-            _customerDataAccess = new DataAccess<CustomerModel>();
-            _allPastOrderDataAccess = new DataAccess<CheckOutModel>();
+            _bookDataAccess = new DataAccess<BookModel, BookModel>();
+            _customerDataAccess = new DataAccess<CustomerModel, CustomerModel>();
+            _allPastOrderDataAccess = new DataAccess<CheckOutModel, CheckOutModel>();
             Connection.InitiaizeDataAccessLayer(ConfigurationManager.ConnectionStrings[DbName].ConnectionString);
 
 

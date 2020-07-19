@@ -136,13 +136,13 @@ namespace BookInventorySystem.ViewModel
 
         private ILogger _log;
 
-        private IDataAccess<BookModel> _bookDataAccess;
+        private IDataAccess<BookModel, BookModel> _bookDataAccess;
 
-        private IDataAccess<CustomerModel> _customerDataAccess;
+        private IDataAccess<CustomerModel, CustomerModel> _customerDataAccess;
 
-        private IDataAccess<CheckOutModel> _allCheckInoutOrderDataAccess;
+        private IDataAccess<CheckOutModel, CheckOutModel> _allCheckInoutOrderDataAccess;
 
-        public CheckOutViewModel(ILogger Log, IDataAccess<BookModel> BookDataAccess, IDataAccess<CustomerModel> CustomerDataAccess, IDataAccess<CheckOutModel> AllPastOrderDataAccess)
+        public CheckOutViewModel(ILogger Log, IDataAccess<BookModel, BookModel> BookDataAccess, IDataAccess<CustomerModel, CustomerModel> CustomerDataAccess, IDataAccess<CheckOutModel, CheckOutModel> AllPastOrderDataAccess)
         {
             _log = Log;
             _bookDataAccess = BookDataAccess;
@@ -292,7 +292,7 @@ namespace BookInventorySystem.ViewModel
                 CustomerId = SelectedCustomerHavingBook.CustomerId
             };
             Task<List<BookModel>> task = Task.Run<List<BookModel>>(() => {
-                var t = DataAccess<BookModel, CustomerModel>.GetAllData(Properties.Resources.GetAllBooksOfSelectedCustomer, _customerModel);
+                var t = DataAccess2<BookModel, CustomerModel>.GetAllData(Properties.Resources.GetAllBooksOfSelectedCustomer, _customerModel);
                 return t;
             });
             BookCollectionBelongingToSelectedCustomer.Clear();

@@ -133,8 +133,8 @@ namespace BookInventorySystem.ViewModel
 
         private ILogger _log;
 
-        private IDataAccess<CustomerModel> _customerDataAccess;
-        public CustomerViewModel(ILogger Log, IDataAccess<CustomerModel> CustomerDataAccess)
+        private IDataAccess<CustomerModel, CustomerModel> _customerDataAccess;
+        public CustomerViewModel(ILogger Log, IDataAccess<CustomerModel, CustomerModel> CustomerDataAccess)
         {
             _log = Log;
             _customerDataAccess = CustomerDataAccess;
@@ -361,7 +361,7 @@ namespace BookInventorySystem.ViewModel
         private async void GetLastPurchaseHistory(CustomerModel _customer)
         {
             Task<List<CustomerHistoryModel>> task = Task.Run<List<CustomerHistoryModel>>(() => {
-                var t = DataAccess<CustomerHistoryModel, CustomerModel>.GetAllData(Properties.Resources.GetLastOrderDetails, _customer);
+                var t = DataAccess2<CustomerHistoryModel, CustomerModel>.GetAllData(Properties.Resources.GetLastOrderDetails, _customer);
                 return t;
             });
             PreviousBookOrderCollection.Clear();

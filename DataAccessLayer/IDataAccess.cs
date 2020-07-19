@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public interface IDataAccess<T>
+    public interface IDataAccess<T,T2>
     {
         List<T> GetAllData(string StoredProcedureParams);
 
-
+        List<T> GetAllData(string StoredProcedureParams, T2 obj);
 
         Task InsertData(T obj, string StoredProcedureParams);
 

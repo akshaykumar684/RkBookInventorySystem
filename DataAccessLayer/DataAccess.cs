@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class DataAccess<T> : IDataAccess<T>
+    public class DataAccess<T,T2> : IDataAccess<T,T2>
     {
         public List<T> GetAllData(string StoredProcedureParams)
         {
@@ -69,11 +69,22 @@ namespace DataAccessLayer
                 return output;
             }
         }
+
+
+        public List<T> GetAllData(string StoredProcedureParams, T2 obj)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Connection.ConnectionString))
+            {
+                //var output = connection.Query<Person>($"select * from People where LastName = '{ lastName }'").ToList();
+                var output = connection.Query<T>(StoredProcedureParams, obj).ToList();
+                return output;
+            }
+        }
     }
 
 
 
-    public static class DataAccess<T, T2>
+    public static class DataAccess2<T, T2>
     {
         public static List<T> GetAllData(string StoredProcedureParams, T2 obj)
         {

@@ -43,9 +43,12 @@ namespace BookInventorySystem.ViewModel
         public ICommand Login { get; set; }
 
         private List<AdminModel> AdminList;
-        public LoginViewModel()
+
+        private IDataAccess<AdminModel, AdminModel> _dataAccess;
+        public LoginViewModel(IDataAccess<AdminModel, AdminModel> DataAccess)
         {
             Connection.InitiaizeDataAccessLayer(ConfigurationManager.ConnectionStrings[DbName].ConnectionString);
+            _dataAccess = DataAccess;
             Login = new ApplicationCommand<object>(LoginValidation);
             AdminList = new List<AdminModel>();
             ErrorMsgVisibility = Visibility.Hidden;
@@ -79,7 +82,7 @@ namespace BookInventorySystem.ViewModel
             };
 
             Task<List<AdminModel>> task = Task.Run<List<AdminModel>>(() => {
-                var t = DataAccess<AdminModel, AdminModel>.GetAllData(Properties.Resources.GetAdminList, _admin);
+                var t = _dataAccess.GetAllData(Properties.Resources.GetAdminList, _admin);
                 return t;
             });
             var adminCollection = await task;
