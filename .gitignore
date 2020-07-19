@@ -226,3 +226,12 @@ BookInventorySystem/bin/Release/BIHelp.chm
 BookInventorySystem/bin/Release/BILogger.dll
 BookInventorySystem/bin/Release/BILogger.pdb
 BookInventorySystem/obj/Debug/build.force
+*.chm
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Database/BILogger.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Database/BookInventorySystem.exe
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Database/BookInventorySystem.exe.config
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Database/Dapper.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Database/DataAccessLayer.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Database/MaterialDesignColors.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Database/MaterialDesignThemes.Wpf.dll
+BI_Installer/BI_Installer/Express/DVD-5/DiskImages/DISK1/program files/BIS/My Product Name/Database/Microsoft.Xaml.Behaviors.dll
