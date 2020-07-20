@@ -79,6 +79,15 @@ namespace BookInventorySystem.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid credentials.
+        /// </summary>
+        internal static string AuthenticationFailedMsg {
+            get {
+                return ResourceManager.GetString("AuthenticationFailedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter author name..
         /// </summary>
         internal static string AuthorNameErrorMsg {
@@ -147,6 +156,15 @@ namespace BookInventorySystem.Properties {
         internal static string CustomerUpdate {
             get {
                 return ResourceManager.GetString("CustomerUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database connection failed..
+        /// </summary>
+        internal static string DatabaseConnFailedMsg {
+            get {
+                return ResourceManager.GetString("DatabaseConnFailedMsg", resourceCulture);
             }
         }
         

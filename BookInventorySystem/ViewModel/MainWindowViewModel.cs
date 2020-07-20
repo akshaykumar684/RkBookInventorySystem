@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using BILogger;
 using BookInventorySystem.Model;
-using System;
 
 namespace BookInventorySystem.ViewModel
 {
@@ -79,16 +78,11 @@ namespace BookInventorySystem.ViewModel
             _customerDataAccess = new DataAccess<CustomerModel, CustomerHistoryModel>();
             _allPastOrderDataAccess = new DataAccess<CheckOutModel, CheckOutModel>();
             _allPastOrderedBookDataAcess = new DataAccess<CustomerModel, BookModel>();
-            Connection.InitiaizeDataAccessLayer(ConfigurationManager.ConnectionStrings[DbName].ConnectionString);
+            //Connection.InitiaizeDataAccessLayer(ConfigurationManager.ConnectionStrings[DbName].ConnectionString);
+
+            InitializeViewModelClass();
 
 
-            _bookViewModel = new BookViewModel(_log, _bookDataAccess, _allPastOrderDataAccess);
-            _customerViewModel = new CustomerViewModel(_log, _customerDataAccess);
-            _checkOutViewModel = new CheckOutViewModel(_log, _bookDataAccess, _customerDataAccess, _allPastOrderDataAccess, _allPastOrderedBookDataAcess);
-            CurrentScreen = _bookViewModel;
-            TabSwitchCommand = new ApplicationCommand<object>(TabSwitch);
-            CloseWindow = new ApplicationCommand<object>(CloseApplication);
-            HelpCommand = new ApplicationCommand(OpenAppHelpManual);
             _log.Message("Application started inside mainViewModel");
 
             //TabItems = new ObservableCollection<ViewModelBase>();
@@ -97,28 +91,39 @@ namespace BookInventorySystem.ViewModel
             //TabItems.Add(new CheckOutViewModel());
         }
 
+        private void InitializeViewModelClass()
+        {
+            _bookViewModel = new BookViewModel(_log, _bookDataAccess, _allPastOrderDataAccess);
+            _customerViewModel = new CustomerViewModel(_log, _customerDataAccess);
+            _checkOutViewModel = new CheckOutViewModel(_log, _bookDataAccess, _customerDataAccess, _allPastOrderDataAccess, _allPastOrderedBookDataAcess);
+            CurrentScreen = _bookViewModel;
+            TabSwitchCommand = new ApplicationCommand<object>(TabSwitch);
+            CloseWindow = new ApplicationCommand<object>(CloseApplication);
+            HelpCommand = new ApplicationCommand(OpenAppHelpManual);
+        }
+
         
         private void TabSwitch(object parameter)
         {
             var _button = parameter as Button;
             if (_button != null)
             {
-                string x = _button.Uid;
-                int index = int.Parse(x);
-                if (x == "0")
+                string _uid = _button.Uid;
+                int index = int.Parse(_uid);
+                if (_uid == "0")
                 {
                     gridmargin = new Thickness(10 + (150 * index), 0, 0, 0);
                     CurrentScreen = _bookViewModel;
                 }
 
-                else if (x == "1")
+                else if (_uid == "1")
                 {
                     gridmargin = new Thickness(10 + (150 * index), 0, 0, 0);
                     CurrentScreen = _customerViewModel;
                 }
 
 
-                else if (x == "2")
+                else if (_uid == "2")
                 {
                     gridmargin = new Thickness(10 + (150 * index), 0, 0, 0);
                     CurrentScreen = _checkOutViewModel;

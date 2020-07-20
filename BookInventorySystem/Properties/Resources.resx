@@ -210,4 +210,10 @@
   <data name="GetLastBookOrderDetails" xml:space="preserve">
     <value>dbo.Get_AllPastOrdersOfBook @BookId</value>
   </data>
+  <data name="AuthenticationFailedMsg" xml:space="preserve">
+    <value>Invalid credentials</value>
+  </data>
+  <data name="DatabaseConnFailedMsg" xml:space="preserve">
+    <value>Database connection failed.</value>
+  </data>
 </root>

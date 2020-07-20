@@ -192,7 +192,12 @@ namespace BookInventorySystem.ViewModel
             ErrorMsgVisibility = Visibility.Collapsed;
         }
 
-
+        /// <summary>
+        /// this method is called by event,which will raise if the user has done some check in and checkout of book.
+        /// so that the quantity of books will get auto updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckOutViewModel_CheckInOutUpdateEvent(object sender, EventArgs e)
         {
             GetBooks();
@@ -308,6 +313,8 @@ namespace BookInventorySystem.ViewModel
                 }
 
                 var tx = AllOrderData.FirstOrDefault(t => t.BookId == SelectedBook.BookId && t.HasBook == 1);
+                ///if the selected book has already been taken it will restrict the user from deleting it.
+                ///User can delete this book only when all the book has returned or the user which has this book is deleted.
                 if (tx != null)
                 {
                     ErrorMsg = "Cannot Delete this book.Someuser owns it\n Please delete that user or return the book";
@@ -342,6 +349,10 @@ namespace BookInventorySystem.ViewModel
             AuthorName = string.Empty;
         }
 
+        /// <summary>
+        /// this method raise a event which will notify Checkout section, upon which all the dropdown list will automatically 
+        /// get updated with changed books
+        /// </summary>
         private void InvokeBookUpdate()
         {
             BookUpdateEvent?.Invoke(new Object(), EventArgs.Empty);

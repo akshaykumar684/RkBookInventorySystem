@@ -250,6 +250,7 @@ namespace BookInventorySystem.ViewModel
             var _searchedCustomer = CustomerCollection.FirstOrDefault(s => s.CustomerName == CustomerName);
 
             // Check if there is already a book with same name and same authorname
+            // Restrict Admin to create a new user with same name,phoneno and address.
 
             if (_searchedCustomer != null && _searchedCustomer.PhoneNo == PhoneNo && _searchedCustomer.Address == Address)
             {
@@ -289,6 +290,7 @@ namespace BookInventorySystem.ViewModel
 
                 _canDeleteUser = true;
                 /// Check if the selected user has taken some book
+                /// if the user has taken the book it will ask o confirmation msg
                 var _customerHasBook = PreviousBookOrderCollection.FirstOrDefault(t => t.HasBook == 1);
                 if (_customerHasBook != null)
                 {

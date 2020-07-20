@@ -173,6 +173,12 @@ namespace BookInventorySystem.ViewModel
             GetAllCustomerHavingBook();
         }
 
+
+        /// <summary>
+        /// this method is called when there is some change in customer from customer section
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CustomerViewModel_CustomerUpdateEvent(object sender, EventArgs e)
         {
             GetAllCustomer();
@@ -182,6 +188,11 @@ namespace BookInventorySystem.ViewModel
             BookCollectionBelongingToSelectedCustomer.Clear();
         }
 
+        /// <summary>
+        /// this method is called if there is some changes in book from book section
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BookViewModel_BookUpdateEvent(object sender, EventArgs e)
         {
             GetBooks();

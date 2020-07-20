@@ -1,11 +1,9 @@
-﻿using BookInventorySystem.Model;
+﻿using BILogger;
+using BookInventorySystem.Model;
 using BookInventorySystem.View;
 using DataAccessLayer;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -39,15 +37,33 @@ namespace BookInventorySystem.ViewModel
                 OnPropertyChange();
             }
         }
+
+        private string _errorMsg;
+
+        public string ErrorMsg
+        {
+            get { return _errorMsg; }
+
+            set
+            {
+                _errorMsg = value;
+                OnPropertyChange();
+            }
+        }
+
+
         const string DbName = "SampleDB";
         public ICommand Login { get; set; }
 
         private List<AdminModel> AdminList;
-
+        
         private IDataAccess<AdminModel, AdminModel> _dataAccess;
-        public LoginViewModel(IDataAccess<AdminModel, AdminModel> DataAccess)
+
+        private ILogger _log;
+        public LoginViewModel(ILogger Log,IDataAccess<AdminModel, AdminModel> DataAccess)
         {
             Connection.InitiaizeDataAccessLayer(ConfigurationManager.ConnectionStrings[DbName].ConnectionString);
+            _log = Log;
             _dataAccess = DataAccess;
             Login = new ApplicationCommand<object>(LoginValidation);
             AdminList = new List<AdminModel>();
@@ -56,22 +72,37 @@ namespace BookInventorySystem.ViewModel
 
         private async void LoginValidation(object parameter)
         {
-            ErrorMsgVisibility = Visibility.Hidden;
-            var win = parameter as Window;
-            await GetBooks();
-            if (AdminList.Count == 0)
-                ErrorMsgVisibility = Visibility.Visible;
-            else
+            try
             {
-                MainWindowView _mainWindow = new MainWindowView();
-                _mainWindow.Show();
-                if (win != null)
-                    win.Close();
+                ErrorMsgVisibility = Visibility.Hidden;
+                var win = parameter as Window;
+                await AuthenticateUser();
+                if (AdminList.Count == 0)
+                {
+                    ErrorMsg = Properties.Resources.AuthenticationFailedMsg;
+                    ErrorMsgVisibility = Visibility.Visible;
+                }
+
+                else
+                {
+                    MainWindowView _mainWindow = new MainWindowView(_log);
+                    _mainWindow.Show();
+                    if (win != null)
+                        win.Close();
+                    _log.Message("User Authenticated");
+                }
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                _log.Error(ex);
+                _log.Message("Unable to connect to database");
+                ErrorMsg = Properties.Resources.DatabaseConnFailedMsg;
+                ErrorMsgVisibility = Visibility.Visible;
             }
         }
 
 
-        private async Task GetBooks()
+        private async Task AuthenticateUser()
         {
             AdminList.Clear();
 

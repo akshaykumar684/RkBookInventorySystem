@@ -9,10 +9,11 @@ namespace BookInventorySystem.View
     /// </summary>
     public partial class MainWindowView : Window
     {
-        public MainWindowView()
+        private ILogger _log;
+        public MainWindowView(ILogger Log)
         {
             InitializeComponent();
-            ILogger _log = new Logger();
+            _log = Log;
             this.DataContext = new MainWindowViewModel(_log);
         }
     }
